@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="EHf-IW-A2E">
+            <objects>
+                <viewController id="01J-lp-oVM" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
+                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Week" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="34Z-tX-UM0">
+                                <rect key="frame" x="16" y="20" width="212" height="96"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="80"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fV9-nd-LwI">
+                                <rect key="frame" x="170" y="119" width="189" height="96"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="80"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(C) Kay4ik Mobile Softwares" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nmY-H6-RGj">
+                                <rect key="frame" x="79" y="638" width="217" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="oBX-xG-Fr9"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="geX-JT-5hp">
+                                <rect key="frame" x="0.0" y="296" width="375" height="75"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wochenplaner" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpp-dw-UMF">
+                                        <rect key="frame" x="94" y="19" width="187" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.25758118699999999" green="0.25633683340000002" blue="0.25882554050000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstItem="Tpp-dw-UMF" firstAttribute="centerX" secondItem="geX-JT-5hp" secondAttribute="centerX" id="Rsr-JL-A0a"/>
+                                    <constraint firstItem="Tpp-dw-UMF" firstAttribute="centerY" secondItem="geX-JT-5hp" secondAttribute="centerY" id="YBF-89-ggr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.8901960784313725" green="0.0" blue="0.058823529411764705" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="geX-JT-5hp" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="2S8-ZT-chc"/>
+                            <constraint firstItem="34Z-tX-UM0" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="3Lf-z2-Lkm"/>
+                            <constraint firstItem="fV9-nd-LwI" firstAttribute="top" secondItem="34Z-tX-UM0" secondAttribute="bottom" constant="3.5" id="6BY-kg-5IC"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="34Z-tX-UM0" secondAttribute="trailingMargin" id="B4z-D0-pSm"/>
+                            <constraint firstAttribute="trailing" secondItem="geX-JT-5hp" secondAttribute="trailing" id="N9g-cN-iBn"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="nmY-H6-RGj" secondAttribute="bottom" constant="8" id="Ner-B5-Ql9"/>
+                            <constraint firstItem="geX-JT-5hp" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="O0j-Ez-IA6"/>
+                            <constraint firstItem="nmY-H6-RGj" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="R4s-Mm-bOD"/>
+                            <constraint firstItem="34Z-tX-UM0" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="fFS-eu-rhJ"/>
+                            <constraint firstItem="fV9-nd-LwI" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailingMargin" id="gaX-AR-lNy"/>
+                            <constraint firstItem="geX-JT-5hp" firstAttribute="top" secondItem="fV9-nd-LwI" secondAttribute="bottom" constant="81" id="owy-Da-fZG"/>
+                            <constraint firstItem="geX-JT-5hp" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="rja-MK-8HT"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="52" y="374.66266866566718"/>
+        </scene>
+    </scenes>
+</document>
