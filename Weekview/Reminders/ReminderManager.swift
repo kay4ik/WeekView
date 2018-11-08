@@ -50,12 +50,26 @@ class ReminderManager {
     
     
     // MARK: - Data of CalendarView
-    public func getAll(of today: Date, wichAreDone done: Bool?) -> [Reminder]{
+    public func getAll(of date: Date, wichAreDone done: Bool?) -> [Reminder]{
         var value: [Reminder]
         if done != nil {
-            value = reminders.filter({dateManager.isTody(sameDateLike: $0.date) && $0.done == done})
+            value = reminders.filter({dateManager.isSame(date: date, like: $0.date) && $0.done == done})
         } else {
-            value = reminders.filter({dateManager.isTody(sameDateLike: $0.date)})
+            value = reminders.filter({dateManager.isSame(date: date, like: $0.date)})
+        }
+        return value
+    }
+    
+    public func getSeperatedLists(of: Date) -> [[Reminder]] {
+        return [getAll(of: of, wichAreDone: false), getAll(of: of, wichAreDone: true)]
+    }
+    
+    private func sort(list: [Reminder]) -> [Reminder]{
+        var value = list
+        if settings.sortOnTime{
+            value.sort(by: {$0.date > $1.date})
+        } else {
+            value.sort(by: {$0.title < $1.title})
         }
         return value
     }

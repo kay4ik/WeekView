@@ -33,10 +33,10 @@ class DateManager {
         return formatter.date(from: from)!
     }
     
-    public func isTody(sameDateLike date: Date) -> Bool {
+    public func isSame(date: Date, like: Date) -> Bool {
         formatter.dateFormat = "dd.MM.yyyy"
-        let today = formatter.string(from: Date())
-        let check = formatter.string(from: date)
-        return today == check
+        let checkDate = formatter.string(from: date)
+        let likeDate = formatter.string(from: like)
+        return checkDate == likeDate
     }
 }

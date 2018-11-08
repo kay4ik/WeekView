@@ -30,10 +30,8 @@
 		F1421BAC1F692FC40072DA31 /* ReminderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1421BAB1F692FC40072DA31 /* ReminderTableViewCell.swift */; };
 		F143727B1FBC6D7F009C5F7F /* DoneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F143727A1FBC6D7F009C5F7F /* DoneTableViewCell.swift */; };
 		F14801AF1FEBED4B008E7C2D /* ScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14801AE1FEBED4B008E7C2D /* ScrollingCell.swift */; };
-		F157246A1F8789910031DF78 /* ReminderSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F15724691F8789910031DF78 /* ReminderSingleton.swift */; };
 		F1733B471FBAEC33009B5243 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1733B461FBAEC33009B5243 /* Settings.swift */; };
 		F17BAFD71F987DBB00B6E612 /* RemindCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17BAFD61F987DBB00B6E612 /* RemindCollectionCell.swift */; };
-		F17BAFD91F987F1A00B6E612 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17BAFD81F987F1A00B6E612 /* CalendarViewController.swift */; };
 		F18082321F8E5B0C007AA70D /* DateSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18082311F8E5B0C007AA70D /* DateSingleton.swift */; };
 		F197A3FB1FC2DD7100B316AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F197A3FA1FC2DD7100B316AD /* Main.storyboard */; };
 		F19C0C5E1FE005A500A46F33 /* ScrollingPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0C5D1FE005A500A46F33 /* ScrollingPopUp.swift */; };
@@ -99,10 +97,8 @@
 		F1421BAB1F692FC40072DA31 /* ReminderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReminderTableViewCell.swift; sourceTree = "<group>"; };
 		F143727A1FBC6D7F009C5F7F /* DoneTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoneTableViewCell.swift; sourceTree = "<group>"; };
 		F14801AE1FEBED4B008E7C2D /* ScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCell.swift; sourceTree = "<group>"; };
-		F15724691F8789910031DF78 /* ReminderSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderSingleton.swift; sourceTree = "<group>"; };
 		F1733B461FBAEC33009B5243 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F17BAFD61F987DBB00B6E612 /* RemindCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindCollectionCell.swift; sourceTree = "<group>"; };
-		F17BAFD81F987F1A00B6E612 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		F18082311F8E5B0C007AA70D /* DateSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSingleton.swift; sourceTree = "<group>"; };
 		F197A3FA1FC2DD7100B316AD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F19C0C5D1FE005A500A46F33 /* ScrollingPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingPopUp.swift; sourceTree = "<group>"; };
@@ -154,9 +150,7 @@
 		AAB8A6DA2189E3D7003F0F3F /* Reminders */ = {
 			isa = PBXGroup;
 			children = (
-				F17BAFD81F987F1A00B6E612 /* CalendarViewController.swift */,
 				AA0E900C219320FF00E00D97 /* HomeViewController.swift */,
-				F15724691F8789910031DF78 /* ReminderSingleton.swift */,
 				F1EA38AA1F6801A3002A38B2 /* Reminder.swift */,
 				F1A7006F1FC46921008A961D /* Location.swift */,
 				AAB8A6DB2189E620003F0F3F /* ReminderManager.swift */,
@@ -502,13 +496,11 @@
 				F1A700701FC46921008A961D /* Location.swift in Sources */,
 				AA7936F9219037A300AB105F /* DateManager.swift in Sources */,
 				F18082321F8E5B0C007AA70D /* DateSingleton.swift in Sources */,
-				F17BAFD91F987F1A00B6E612 /* CalendarViewController.swift in Sources */,
 				AABFF6972188718600B7A3EA /* Colors.swift in Sources */,
 				F1E78ED41F5E92C600FDDDFA /* AppDelegate.swift in Sources */,
 				F12806651FBD9AB40036780E /* LocationViewController.swift in Sources */,
 				AA9C7D94217F56E2006F87A6 /* EditTableViewController.swift in Sources */,
 				AA5620A1217F229000928897 /* DetailTableViewController.swift in Sources */,
-				F157246A1F8789910031DF78 /* ReminderSingleton.swift in Sources */,
 				F138F2671FCC3E72009BF613 /* NotificationController.swift in Sources */,
 				AAB8A6DC2189E620003F0F3F /* ReminderManager.swift in Sources */,
 				F12806631FBD99180036780E /* LocationManager.swift in Sources */,

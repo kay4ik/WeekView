@@ -26,7 +26,6 @@ class DetailTableViewController: UITableViewController {
     let remindController = ReminderManager.shared
     let dateController = DateSingleton.shared
     let settingControll = Settings.shared
-    var archived: Bool!
     var index: Int!
     
     
@@ -73,7 +72,7 @@ class DetailTableViewController: UITableViewController {
     }
     
     func handleStatus() {
-        if archived {
+        if remind.done {
             statusLabel.text = "Erledigt"
             doneButton.image = UIImage(named: "cancel")
             editButton.isEnabled = false
@@ -128,29 +127,10 @@ class DetailTableViewController: UITableViewController {
     // MARK: - Delete Button Pressed
     
     @IBAction func deleteReminder(_ sender: Any) {
-        if archived! {
-            deleteDoneReminder()
-        } else {
-            deleteOpenReminder()
-        }
+        deleteReminder()
     }
     
-    func deleteDoneReminder() {
-        let uiAlert = UIAlertController(title: "Sicher?",
-                                        message: "Durch das löschen wird die Erinnerung gelöscht. Dies kann nicht Rückgängig gemacht werden.",
-                                        preferredStyle: .actionSheet)
-        self.present(uiAlert, animated: true, completion: nil)
-        
-        uiAlert.addAction(UIAlertAction(title: "Löschen", style: .destructive, handler: { action in
-            self.remindController.remove(self.remind)
-            self.dismiss(animated: true, completion: nil)
-            self.navigationController?.popViewController(animated: true)
-        }))
-        
-        uiAlert.addAction(UIAlertAction(title: "Abbrechen", style: .cancel, handler: nil))
-    }
-    
-    func deleteOpenReminder(){
+    func deleteReminder() {
         let uiAlert = UIAlertController(title: "Sicher?",
                                         message: "Durch das löschen wird die Erinnerung gelöscht. Dies kann nicht Rückgängig gemacht werden.",
                                         preferredStyle: .actionSheet)
@@ -168,7 +148,7 @@ class DetailTableViewController: UITableViewController {
     // MARK: - Done Button Pressed
     
     @IBAction func doneButtonPressed(_ sender: Any) {
-        if archived! {
+        if remind.done {
             remindController.unfinish(self.remind)
         } else {
             remindController.finish(self.remind)

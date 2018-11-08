@@ -22,11 +22,11 @@ class EditTableViewController: UITableViewController {
     
     var navigationBar: UINavigationBar?
     
-    var remind = Reminder()
+    var remind: Reminder?
     let remindController = ReminderManager.shared
     let setting = Settings.shared
     let notifyController = NotificationController.shared
-    var alreadyExist: Bool?
+    var alreadyExist = false
     var selectedDate: Date?
     
     
@@ -41,16 +41,15 @@ class EditTableViewController: UITableViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        if remind.myPosition == nil {
-            alreadyExist = false
+        if !alreadyExist {
             datePicker.minimumDate = Date()
             datePicker.date = self.selectedDate ?? Date()
             navigationItem.title = "Neue Erinnerung"
+            remind = Reminder()
         }
         else {
             setReminderData()
             navigationItem.title = "Bearbeiten"
-            alreadyExist = true
         }
         setLocationLabel()
         setNoticeText()
@@ -62,33 +61,33 @@ class EditTableViewController: UITableViewController {
     
     func handleMapView() {
         let title: String
-        if remind.title == "" {
+        if remind!.title == "" {
             title = "Neue Erinnerung"
         }
         else {
-            title = remind.title
+            title = remind!.title
         }
         
-        if remind.location != nil {
-            let location = remind.location!.coordinates
+        if remind!.location != nil {
+            let location = remind!.location!.coordinates
             display(location: location, titel: title, subtitel: "")
         }
         
     }
     
     func setReminderData(){
-        titleTextField.text = remind.title
-        datePicker.date = remind.date
-        noticeTextView.text = remind.notice
-        priorityPicker.selectedSegmentIndex = (remind.priority)
-        priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: (remind.priority), colorMode: setting.colorMode)
+        titleTextField.text = remind!.title
+        datePicker.date = remind!.date
+        noticeTextView.text = remind!.notice
+        priorityPicker.selectedSegmentIndex = (remind!.priority)
+        priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: (remind!.priority), colorMode: setting.colorMode)
     }
     
     func setLocationLabel() {
-        if remind.location == nil {
+        if remind!.location == nil {
             locationLabel.text = "Kein Standort festgelegt."
         } else {
-            locationLabel.text = remind.location?.getAddress()
+            locationLabel.text = remind!.location?.getAddress()
         }
     }
     
@@ -130,17 +129,17 @@ class EditTableViewController: UITableViewController {
     @IBAction func save(_ sender: Any) {
         checkEmptyTitle()
         
-        remind.title = titleTextField.text ?? "No Title"
-        remind.date = datePicker.date
-        remind.notice = noticeTextView.text
+        remind!.title = titleTextField.text ?? "No Title"
+        remind!.date = datePicker.date
+        remind!.notice = noticeTextView.text
         
-        if remind.myPosition != nil {
-            remindController.update(reminder: remind, at: (remind.myPosition)!)
+        if alreadyExist {
+            remindController.update(remind!)
         }
         else {
-            remindController.save(reminder: remind)
-            if remind.priority >= 1 {
-                notifyController.newNotify(with: remind)
+            remindController.insert(remind!)
+            if remind!.priority >= 1 {
+                notifyController.newNotify(with: remind!)
             }
         }
         
@@ -150,7 +149,7 @@ class EditTableViewController: UITableViewController {
     
     @IBAction func prioPickerChanged(_ sender: Any) {
         let selected = priorityPicker.selectedSegmentIndex
-        remind.priority = selected
+        remind!.priority = selected
         priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: selected, colorMode: setting.colorMode)
     }
     
@@ -161,8 +160,8 @@ class EditTableViewController: UITableViewController {
         guard let viewController = segue.destination as? LocationViewController else {
             fatalError("Unknown destination in EditLocation")
         }
-        viewController.local = self.remind.location
-        viewController.remTitel = self.remind.title
+        viewController.local = self.remind!.location
+        viewController.remTitel = self.remind!.title
         viewController.delegate = self
     }
 
@@ -181,7 +180,7 @@ extension EditTableViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        remind.notice = noticeTextView.text
+        remind!.notice = noticeTextView.text
         if noticeTextView.text.isEmpty {
             noticeTextView.text = "Keine Notiz"
             noticeTextView.textColor = UIColor.lightGray
@@ -208,7 +207,7 @@ extension EditTableViewController {
 }
 extension EditTableViewController: LocationViewControllerDelegate {
     func LocationViewControllerDidSave(sender: LocationViewController, location: Location) {
-        remind.location = location
-        locationLabel.text = remind.getOneRowLocation()
+        remind!.location = location
+        locationLabel.text = remind!.getOneRowLocation()
     }
 }
