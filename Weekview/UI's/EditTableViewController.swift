@@ -51,7 +51,7 @@ class EditTableViewController: UITableViewController {
             setReminderData()
             navigationItem.title = "Bearbeiten"
         }
-        setLocationLabel()
+        showLocation()
         setNoticeText()
     }
     
@@ -59,7 +59,7 @@ class EditTableViewController: UITableViewController {
         handleMapView()
     }
     
-    func handleMapView() {
+    private func handleMapView() {
         let title: String
         if remind!.title == "" {
             title = "Neue Erinnerung"
@@ -75,7 +75,7 @@ class EditTableViewController: UITableViewController {
         
     }
     
-    func setReminderData(){
+    private func setReminderData(){
         titleTextField.text = remind!.title
         datePicker.date = remind!.date
         noticeTextView.text = remind!.notice
@@ -83,15 +83,17 @@ class EditTableViewController: UITableViewController {
         priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: (remind!.priority), colorMode: setting.colorMode)
     }
     
-    func setLocationLabel() {
+    private func showLocation() {
         if remind!.location == nil {
             locationLabel.text = "Kein Standort festgelegt."
+            mapView.isHidden = true
         } else {
+            mapView.isHidden = false
             locationLabel.text = remind!.location?.getAddress()
         }
     }
     
-    func setNoticeText(){
+    private func setNoticeText(){
         if noticeTextView.text == "Keine Notiz" || noticeTextView.text.isEmpty {
             noticeTextView.text = "Keine Notiz"
             noticeTextView.textColor = UIColor.lightGray
@@ -99,7 +101,8 @@ class EditTableViewController: UITableViewController {
             noticeTextView.textColor = UIColor.black
         }
     }
-    func setupBackground(){
+    
+    private func setupBackground(){
         let barStyle = setting.style
         let barTint = setting.tint
         navigationBar?.barStyle = barStyle
@@ -124,6 +127,16 @@ class EditTableViewController: UITableViewController {
         }
     }
     
+    private func clear() {
+        remind = nil
+        alreadyExist = false
+        titleTextField.text = ""
+        noticeTextView.text = ""
+        datePicker.date = Date()
+        priorityPicker.selectedSegmentIndex = 0
+        navigationItem.title = "Neue Erinnerung"
+    }
+    
     // MARK: - Actions
     
     @IBAction func save(_ sender: Any) {
@@ -142,7 +155,7 @@ class EditTableViewController: UITableViewController {
                 notifyController.newNotify(with: remind!)
             }
         }
-        
+        clear()
         self.dismiss(animated: true, completion: nil)
         self.navigationController?.popViewController(animated: true);
     }

@@ -14,7 +14,6 @@ protocol ScrollingDelegate {
 
 class ScrollingPopUp: UIViewController {
     let setting = Settings.shared
-    let dateController = DateSingleton.shared
     let remindControll = ReminderManager.shared
     public var delegate: ScrollingDelegate?
     var selectedDate = Date()
@@ -22,17 +21,30 @@ class ScrollingPopUp: UIViewController {
     @IBOutlet weak var mainView: UIView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var toolBar: UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let color = setting.background
-        mainView.backgroundColor = color
-        calendarView.backgroundColor = color
         setupCalendarView()
+        setUpBackground()
+        layoutViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         setupViewsOfCalendar(from: calendarView.visibleDates())
+    }
+    
+    private func layoutViews() {
+        toolBar.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+        mainView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+    }
+    
+    private func setUpBackground() {
+        let color = setting.background
+        mainView.backgroundColor = color
+        calendarView.backgroundColor = color
+        titleLabel.textColor = setting.mainText
+        toolBar.barStyle = setting.style
     }
     
     func setupCalendarView(){
@@ -73,9 +85,9 @@ class ScrollingPopUp: UIViewController {
     
     private func handleTextColors(validCell: ScrollingCell, cellState: CellState){
         if cellState.dateBelongsTo == .thisMonth {
-            validCell.dateLabel.textColor = UIColor.white
+            validCell.dateLabel.textColor = setting.mainText
         } else {
-            validCell.dateLabel.textColor = UIColor.lightGray
+            validCell.dateLabel.textColor = setting.subText
         }
     }
     

@@ -76,6 +76,19 @@ class Settings {
         }
     }
     
+    // MARK: - Search Settings
+    var showDoneReminders: Bool {
+        get {
+            if isNotSet(key: "showDoneReminders") {
+                return true
+            }
+            return UserDefaults.standard.bool(forKey: "showDoneReminders")
+        }
+        set {
+            UserDefaults.standard.set(newValue, forKey: "showDoneReminders")
+        }
+    }
+    
     // MARK: - Map Settings
     var showTraffic: Bool{
         get {
@@ -101,13 +114,6 @@ class Settings {
         }
     }
     
-    private func isNotSet(key: String) -> Bool{
-        let check = UserDefaults.standard.object(forKey: key)
-        if check == nil {
-            return true
-        }
-        return false
-    }
     
     //MARK: - Bar Options
     var style: UIBarStyle {
@@ -146,3 +152,13 @@ class Settings {
         }
     }
 }
+
+// MARK: - Functions
+private func isNotSet(key: String) -> Bool{
+    let check = UserDefaults.standard.object(forKey: key)
+    if check == nil {
+        return true
+    }
+    return false
+}
+

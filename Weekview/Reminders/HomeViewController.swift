@@ -19,7 +19,6 @@ class HomeViewController: UIViewController {
     
     private let dateFormatter = DateFormatter()
     private let remindController = ReminderManager.shared
-    private let dateController = DateManager.shared
     private let settings = Settings.shared
     
     private var selectedDate: Date?
@@ -32,17 +31,21 @@ class HomeViewController: UIViewController {
         calendarView.selectDates([Date()])
         navigationBar = navigationController?.navigationBar
         tabBar = self.tabBarController?.tabBar
+        tabBar?.barStyle = settings.style
         setUpColors()
         setupCalendarView()
-        reload()
+        scrollToToday()
+        list(date: Date())
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        scrollToToday()
+        if calendarView.selectedDates.count > 0 {
+            list(date: calendarView.selectedDates.first!)
+        }
+        reload()
     }
     
     private func reload() {
-        //list(date: calendarView.selectedDates[0])
         calendarView.reloadData()
         tableView.reloadData()
     }
@@ -66,9 +69,12 @@ class HomeViewController: UIViewController {
     
     private func setUpColors() {
         setUpBackgroundView()
-        navigationBar?.barStyle = settings.style
-        navigationBar?.tintColor = settings.tint
-        
+        let style = settings.style
+        let tint = settings.tint
+        navigationBar?.barStyle = style
+        navigationBar?.tintColor = tint
+        tabBar?.barStyle = style
+        tabBar?.tintColor = tint
         for label in daysStack.subviews as! [UILabel] {
             label.textColor = settings.subText
         }
@@ -148,7 +154,7 @@ extension HomeViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     func calendar(_ calendar: JTAppleCalendarView, didSelectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
         configure(cell: cell, cellState: cellState)
         list(date: date)
-        //tableView.reloadData()
+        reload()
     }
     
     func calendar(_ calendar: JTAppleCalendarView, didDeselectDate date: Date, cell: JTAppleCell?, cellState: CellState) {
@@ -182,42 +188,41 @@ extension HomeViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
         handleEventDots(cell: cell, cellState: cellState)
     }
     
-    private func list(date: Date) {
-        dateReminders = remindController.getSeperatedLists(of: date)
-        tableView.reloadData()
+    private func list(date: Date?) {
+        dateReminders = remindController.getSeperatedLists(of: date ?? Date())
+    }
+    
+    private func getReminder(index: IndexPath) -> Reminder {
+        return dateReminders![index.section][index.row]
     }
 }
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+    private func handleNoDataLabel() {
+        var value = false
+        if dateReminders?[0].count ?? 0 == 0 && dateReminders?[1].count ?? 0 == 0{
+            value = true
+        }
+        noDataLabel.isHidden = !value
+        tableView.isHidden = value
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if dateReminders?.count == 0 {
-            tableView.isHidden = true
-            noDataLabel.isHidden = false
-            return 0
-        }
-        else {
-            tableView.isHidden = false
-            noDataLabel.isHidden = true
-            if section == 0 {
-                return dateReminders?[0].count ?? 0
-            }
-            else {
-                return dateReminders?[1].count ?? 0
-            }
-        }
+        handleNoDataLabel()
+        return dateReminders![section].count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = getCell(indexPath: indexPath)
-        let actualReminder = dateReminders![indexPath.section][indexPath.row]
+        let actualReminder = getReminder(index: indexPath)
         cell.reminderid = actualReminder.id
         
         cell.titleLabel.attributedText = strikeThrough(string: actualReminder.title, value: indexPath.section)
-        cell.dateLabel.text = dateController.write(time: actualReminder.date)
+        cell.dateLabel.text = DateManager.write(time: actualReminder.date)
         cell.priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: actualReminder.priority, colorMode: settings.colorMode)
         
         let font = getFont(style: actualReminder.priority)
@@ -228,8 +233,17 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {return "Offene Erinnerungen"}
-        return "Erledigte Erinnerungen"
+        if section == 0 {
+            if dateReminders![section].count > 0 {
+                return "Offene Erinnerungen"
+            }
+        }
+        else {
+            if dateReminders![section].count > 0 {
+                return "Erledigte Erinnerungen"
+            }
+        }
+        return ""
     }
     
     private func getCell(indexPath: IndexPath) -> ReminderTableViewCell {
@@ -244,37 +258,87 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let selectedReminder = self.getReminder(index: indexPath)
+        var action: UIContextualAction
+        if indexPath.section == 0 {
+            let edit = UIContextualAction(style: .normal, title: "Bearbeiten", handler: { (action, index, nil)  in
+                print("Ofenne Erinnerung bearbeiten")
+                self.performSegue(withIdentifier: "editDirectly", sender: selectedReminder)
+            })
+            edit.backgroundColor = Colors.blue
+            action = edit
+        } else {
+            let del = UIContextualAction(style: .destructive, title: "Löschen", handler: { (action, index, nil) in
+                print("erledigte löschen")
+                self.remindController.remove(selectedReminder)
+                self.list(date: self.calendarView.selectedDates[0])
+                self.reload()
+            })
+            //del.backgroundColor = UIColor.red
+            action = del
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    @available(iOS 11.0, *)
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let selectedReminder = self.getReminder(index: indexPath)
+        let action: UIContextualAction
+        if indexPath.section == 0 {
+            let done = UIContextualAction(style: .normal, title: "Erledigen", handler: { (action, index, nil) in
+                print("offene erinnerung erledigen")
+                self.remindController.finish(selectedReminder)
+                self.list(date: self.calendarView.selectedDates[0])
+                self.reload()
+            })
+            done.backgroundColor = Colors.oliveGreen
+            action = done
+        } else {
+            let redo = UIContextualAction(style: .normal, title: "Erneuern", handler: { (action, index, nil) in
+                print("erledigte erneuern")
+                self.remindController.unfinish(selectedReminder)
+                self.list(date: self.calendarView.selectedDates[0])
+                self.reload()
+            })
+            redo.backgroundColor = UIColor.gray
+            action = redo
+        }
+        return UISwipeActionsConfiguration(actions: [action])
+    }
+    
+    
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let cell = getCell(indexPath: indexPath)
-        let id = cell.reminderid
+        let selectedReminder = self.getReminder(index: indexPath)
         if indexPath.section == 0 {
             let edit = UITableViewRowAction(style: .normal, title: "Bearbeiten", handler: { (action, index) in
                 print("Ofenne Erinnerung bearbeiten")
-                let selectedReminder = self.remindController.getReminder(with: id!)
                 self.performSegue(withIdentifier: "editDirectly", sender: selectedReminder)
             })
             edit.backgroundColor = Colors.blue
             
             let done = UITableViewRowAction(style: .normal, title: "Erledigen", handler: { (action, index) in
                 print("offene erinnerung erledigen")
-                self.remindController.finish(self.remindController.getReminder(with: id!))
+                self.remindController.finish(selectedReminder)
+                self.list(date: self.calendarView.selectedDates[0])
                 self.reload()
             })
             done.backgroundColor = UIColor.red
             return [done, edit]
         } else {
-            let del = UITableViewRowAction(style: .normal, title: "Löschen", handler: { (action, index) in
+            let del = UITableViewRowAction(style: .destructive, title: "Löschen", handler: { (action, index) in
                 print("erledigte löschen")
-                let selectedReminder = self.remindController.getReminder(with: id!)
                 self.remindController.remove(selectedReminder)
+                self.list(date: self.calendarView.selectedDates[0])
                 self.reload()
             })
             del.backgroundColor = UIColor.red
             
             let redo = UITableViewRowAction(style: .normal, title: "Erneuern", handler: { (action, index) in
                 print("erledigte erneuern")
-                let selectedReminder = self.remindController.getReminder(with: id!)
                 self.remindController.unfinish(selectedReminder)
+                self.list(date: self.calendarView.selectedDates[0])
                 self.reload()
             })
             redo.backgroundColor = UIColor.gray
@@ -315,6 +379,7 @@ extension HomeViewController: ScrollingDelegate {
                     fatalError("Unexpected destination: \(segue.destination)")
             }
             reminderEditViewController.remind = (sender as? Reminder)!
+            reminderEditViewController.alreadyExist = true
             
         case "fastScroll":
             guard let viewController = segue.destination as? ScrollingPopUp
@@ -322,9 +387,6 @@ extension HomeViewController: ScrollingDelegate {
                     fatalError("Unexpected destination: \(segue.destination)")
             }
             viewController.delegate = self
-            
-        case "settings":
-            print("")
             
         default:
             fatalError("Unexpected Identifier")

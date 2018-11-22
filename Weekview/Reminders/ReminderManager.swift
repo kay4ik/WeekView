@@ -10,7 +10,6 @@ import Foundation
 
 class ReminderManager {
     private var reminders = Set<Reminder>()
-    private let dateManager = DateManager.shared
     private let settings = Settings.shared
     
     private init(){}
@@ -53,10 +52,11 @@ class ReminderManager {
     public func getAll(of date: Date, wichAreDone done: Bool?) -> [Reminder]{
         var value: [Reminder]
         if done != nil {
-            value = reminders.filter({dateManager.isSame(date: date, like: $0.date) && $0.done == done})
+            value = reminders.filter({DateManager.isSame(date: date, like: $0.date) && $0.done == done})
         } else {
-            value = reminders.filter({dateManager.isSame(date: date, like: $0.date)})
+            value = reminders.filter({DateManager.isSame(date: date, like: $0.date)})
         }
+        value = sort(value)
         return value
     }
     
@@ -64,12 +64,16 @@ class ReminderManager {
         return [getAll(of: of, wichAreDone: false), getAll(of: of, wichAreDone: true)]
     }
     
-    private func sort(list: [Reminder]) -> [Reminder]{
+    public func getAllReminders() -> [Reminder] {
+        return sort(Array(reminders))
+    }
+    
+    private func sort(_ list: [Reminder]) -> [Reminder]{
         var value = list
         if settings.sortOnTime{
-            value.sort(by: {$0.date > $1.date})
+            value.sort(by: {$0.date < $1.date})
         } else {
-            value.sort(by: {$0.title < $1.title})
+            value.sort(by: {$0.priority > $1.priority})
         }
         return value
     }
@@ -79,13 +83,13 @@ class ReminderManager {
     }
     
     public func isThereA(reminder at: Date) -> Int {
-        let date = dateManager.write(date: at)
-        let dateCheck = reminders.filter({dateManager.write(date: $0.date) == date})
+        let date = DateManager.write(date: at)
+        let dateCheck = reminders.filter({DateManager.write(date: $0.date) == date && !$0.done})
         
         if dateCheck.count <= 0 {
             return 0 //No Reminder
         } else {
-            let prioCheck = dateCheck.filter({$0.priority == 2})
+            let prioCheck = dateCheck.filter({$0.priority == 2 })
             if prioCheck.count <= 0 {
                 return 1 //Reminder without high Prio
             } else {
@@ -114,12 +118,19 @@ class ReminderManager {
     
     // MARK: - Data of SearchFeature
     public func search(for Title: String) -> [Reminder] {
-        return  reminders.filter({(item: Reminder) -> Bool in
+        let result = reminders.filter({(item: Reminder) -> Bool in
             let stringMatch = item.title.lowercased().range(of: Title.lowercased())
             return stringMatch != nil ? true : false
         })
+        if !settings.showDoneReminders {
+            return Array(filterDonesOut(of: Array(result)))
+        }
+        return Array(result)
     }
     
+    private func filterDonesOut(of: [Reminder]) -> [Reminder] {
+        return of.filter({$0.done == false})
+    }
     
     //MARK: - Encodings
     public func save() {

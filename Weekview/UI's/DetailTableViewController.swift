@@ -24,7 +24,6 @@ class DetailTableViewController: UITableViewController {
     
     var remind: Reminder!
     let remindController = ReminderManager.shared
-    let dateController = DateSingleton.shared
     let settingControll = Settings.shared
     var index: Int!
     
@@ -35,7 +34,7 @@ class DetailTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         titleLabel.text = remind.title
-        dateLabel.text = dateController.writeFormattedDate(from: remind.date)
+        dateLabel.text = DateManager.write(date: remind.date)
         handleLocationCell()
         handleNoticeCell()
         handlePriority()
@@ -94,6 +93,7 @@ class DetailTableViewController: UITableViewController {
                 fatalError("Unknown destination in EditThis")
             }
             viewController.remind = self.remind!
+            viewController.alreadyExist = true
             
         case "showLocation":
             guard let viewController = segue.destination as? ShowLocationPopUp else {

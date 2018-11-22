@@ -11,6 +11,9 @@
 		AA49A3D2217E2F7400443BEF /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49A3D1217E2F7400443BEF /* SettingTableViewController.swift */; };
 		AA5620A1217F229000928897 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5620A0217F229000928897 /* DetailTableViewController.swift */; };
 		AA5620A3217F3BF700928897 /* ShowNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5620A2217F3BF700928897 /* ShowNoticeViewController.swift */; };
+		AA69FF3121A48118009D5A7B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA69FF3021A48118009D5A7B /* Extensions.swift */; };
+		AA761157219EF3A800864930 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA761156219EF3A800864930 /* SearchTableViewController.swift */; };
+		AA76115B219EF95000864930 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA76115A219EF95000864930 /* SearchManager.swift */; };
 		AA7936F9219037A300AB105F /* DateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7936F8219037A300AB105F /* DateManager.swift */; };
 		AA9C7D94217F56E2006F87A6 /* EditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9C7D93217F56E2006F87A6 /* EditTableViewController.swift */; };
 		AAB53BA4218315F800A881A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB53BA3218315F800A881A6 /* MapViewController.swift */; };
@@ -32,7 +35,6 @@
 		F14801AF1FEBED4B008E7C2D /* ScrollingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F14801AE1FEBED4B008E7C2D /* ScrollingCell.swift */; };
 		F1733B471FBAEC33009B5243 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1733B461FBAEC33009B5243 /* Settings.swift */; };
 		F17BAFD71F987DBB00B6E612 /* RemindCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F17BAFD61F987DBB00B6E612 /* RemindCollectionCell.swift */; };
-		F18082321F8E5B0C007AA70D /* DateSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F18082311F8E5B0C007AA70D /* DateSingleton.swift */; };
 		F197A3FB1FC2DD7100B316AD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F197A3FA1FC2DD7100B316AD /* Main.storyboard */; };
 		F19C0C5E1FE005A500A46F33 /* ScrollingPopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19C0C5D1FE005A500A46F33 /* ScrollingPopUp.swift */; };
 		F1A2DBC61FD55D1500617B14 /* SuccessDonePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A2DBC51FD55D1500617B14 /* SuccessDonePopUp.swift */; };
@@ -78,6 +80,9 @@
 		AA49A3D1217E2F7400443BEF /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = Weekview/Settings/SettingTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA5620A0217F229000928897 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
 		AA5620A2217F3BF700928897 /* ShowNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNoticeViewController.swift; sourceTree = "<group>"; };
+		AA69FF3021A48118009D5A7B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		AA761156219EF3A800864930 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
+		AA76115A219EF95000864930 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		AA7936F8219037A300AB105F /* DateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateManager.swift; sourceTree = "<group>"; };
 		AA9C7D93217F56E2006F87A6 /* EditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewController.swift; sourceTree = "<group>"; };
 		AAB53BA3218315F800A881A6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -99,7 +104,6 @@
 		F14801AE1FEBED4B008E7C2D /* ScrollingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingCell.swift; sourceTree = "<group>"; };
 		F1733B461FBAEC33009B5243 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		F17BAFD61F987DBB00B6E612 /* RemindCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindCollectionCell.swift; sourceTree = "<group>"; };
-		F18082311F8E5B0C007AA70D /* DateSingleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSingleton.swift; sourceTree = "<group>"; };
 		F197A3FA1FC2DD7100B316AD /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		F19C0C5D1FE005A500A46F33 /* ScrollingPopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollingPopUp.swift; sourceTree = "<group>"; };
 		F1A2DBC51FD55D1500617B14 /* SuccessDonePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessDonePopUp.swift; sourceTree = "<group>"; };
@@ -145,6 +149,15 @@
 				3D4BC2E595B7BAA26305B5C4 /* Pods-WeekviewTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		AA761155219EF38B00864930 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				AA76115A219EF95000864930 /* SearchManager.swift */,
+				AA761156219EF3A800864930 /* SearchTableViewController.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		AAB8A6DA2189E3D7003F0F3F /* Reminders */ = {
@@ -199,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				F12806621FBD99180036780E /* LocationManager.swift */,
-				F18082311F8E5B0C007AA70D /* DateSingleton.swift */,
 				AA7936F8219037A300AB105F /* DateManager.swift */,
 				F13DB21B1FB0AC4800E3DFAE /* PriorityMngr.swift */,
 				F138F2661FCC3E72009BF613 /* NotificationController.swift */,
@@ -242,8 +254,10 @@
 			isa = PBXGroup;
 			children = (
 				F1E78ED31F5E92C600FDDDFA /* AppDelegate.swift */,
+				AA69FF3021A48118009D5A7B /* Extensions.swift */,
 				AAB8A6DA2189E3D7003F0F3F /* Reminders */,
 				AABFF68F218847B300B7A3EA /* Settings */,
+				AA761155219EF38B00864930 /* Search */,
 				F138F2641FCC3D6A009BF613 /* Controllers */,
 				F138F2621FCC3BFA009BF613 /* UI's */,
 				F197A3FA1FC2DD7100B316AD /* Main.storyboard */,
@@ -495,7 +509,6 @@
 				AAB8A6D92189D726003F0F3F /* ColorModeSetViewController.swift in Sources */,
 				F1A700701FC46921008A961D /* Location.swift in Sources */,
 				AA7936F9219037A300AB105F /* DateManager.swift in Sources */,
-				F18082321F8E5B0C007AA70D /* DateSingleton.swift in Sources */,
 				AABFF6972188718600B7A3EA /* Colors.swift in Sources */,
 				F1E78ED41F5E92C600FDDDFA /* AppDelegate.swift in Sources */,
 				F12806651FBD9AB40036780E /* LocationViewController.swift in Sources */,
@@ -504,13 +517,16 @@
 				F138F2671FCC3E72009BF613 /* NotificationController.swift in Sources */,
 				AAB8A6DC2189E620003F0F3F /* ReminderManager.swift in Sources */,
 				F12806631FBD99180036780E /* LocationManager.swift in Sources */,
+				AA761157219EF3A800864930 /* SearchTableViewController.swift in Sources */,
 				F13DB21C1FB0AC4800E3DFAE /* PriorityMngr.swift in Sources */,
 				AABFF691218847EE00B7A3EA /* MapModeSetTableViewController.swift in Sources */,
 				F123B07E1FDA956F008C29B1 /* ShowLocationPopUp.swift in Sources */,
 				AAB53BA4218315F800A881A6 /* MapViewController.swift in Sources */,
 				F128065F1FBD870B0036780E /* HelpWebViewController.swift in Sources */,
 				F143727B1FBC6D7F009C5F7F /* DoneTableViewCell.swift in Sources */,
+				AA69FF3121A48118009D5A7B /* Extensions.swift in Sources */,
 				F1421BAC1F692FC40072DA31 /* ReminderTableViewCell.swift in Sources */,
+				AA76115B219EF95000864930 /* SearchManager.swift in Sources */,
 				F19C0C5E1FE005A500A46F33 /* ScrollingPopUp.swift in Sources */,
 				F1733B471FBAEC33009B5243 /* Settings.swift in Sources */,
 			);

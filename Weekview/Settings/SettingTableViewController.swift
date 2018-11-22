@@ -13,16 +13,16 @@ class SettingTableViewController: UITableViewController {
     private let remindController = ReminderManager.shared
     
     @IBOutlet weak var darkModeSwitch: UISwitch!
-    @IBOutlet weak var sortSettingLabel: UILabel!
+    @IBOutlet weak var sortModeSwitch: UISwitch!
     @IBOutlet weak var trafficSwitch: UISwitch!
     @IBOutlet weak var mapTypeLabel: UILabel!
     @IBOutlet weak var colorModeLabel: UILabel!
+    @IBOutlet weak var showDoneReminderSwitch: UISwitch!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setSwitches()
-        sortSettingLabel.text = "Zeit"
         let navigation = navigationController?.navigationBar
         navigation?.barStyle = setting.style
         navigation?.tintColor = setting.tint
@@ -31,7 +31,6 @@ class SettingTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         setMapTypeLabel(setting.mapType)
         setColorModeLabel(setting.colorMode)
-        sortSettingLabel.text = "Zeit"
     }
 
     // MARK: - Actions
@@ -42,6 +41,14 @@ class SettingTableViewController: UITableViewController {
     @IBAction func changeDarkMode(_ sender: Any) {
         setting.set(darkMode: darkModeSwitch.isOn)
         restartRequest()
+    }
+    
+    @IBAction func changeSortMode(_ sender: Any) {
+        setting.sortOnTime = sortModeSwitch.isOn
+    }
+    
+    @IBAction func changeShowDoneReminder(_ sender: Any) {
+        setting.showDoneReminders = showDoneReminderSwitch.isOn
     }
     
     @IBAction func loadSampleReminders(_ sender: Any) {
@@ -128,6 +135,8 @@ class SettingTableViewController: UITableViewController {
     private func setSwitches() {
         darkModeSwitch.setOn(setting.runtimeDarkMode, animated: false)
         trafficSwitch.setOn(setting.showTraffic, animated: false)
+        sortModeSwitch.setOn(setting.sortOnTime, animated: false)
+        showDoneReminderSwitch.setOn(setting.showDoneReminders, animated: false)
     }
     
     private func restartRequest(){
@@ -157,53 +166,6 @@ class SettingTableViewController: UITableViewController {
             exit(EXIT_SUCCESS)
         })
     }
-    
-    // MARK: - Table view data source
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
 
     /*
     // MARK: - Navigation
@@ -216,23 +178,3 @@ class SettingTableViewController: UITableViewController {
     */
 
 }
-extension UIViewController {
-    
-    func showToast(message : String) {
-        
-        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 75, y: self.view.frame.size.height-100, width: 150, height: 35))
-        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
-        toastLabel.textColor = UIColor.white
-        toastLabel.textAlignment = .center;
-        toastLabel.font = UIFont(name: "Montserrat-Light", size: 12.0)
-        toastLabel.text = message
-        toastLabel.alpha = 1.0
-        toastLabel.layer.cornerRadius = 10;
-        toastLabel.clipsToBounds  =  true
-        self.view.addSubview(toastLabel)
-        UIView.animate(withDuration: 4.0, delay: 0.1, options: .curveEaseOut, animations: {
-            toastLabel.alpha = 0.0
-        }, completion: {(isCompleted) in
-            toastLabel.removeFromSuperview()
-        })
-    } }
