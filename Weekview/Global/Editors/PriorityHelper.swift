@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class PriorityMngr {
+class PriorityHelper {
     
     private static let colors: [[UIColor]] = [
         [.lightGray, .orange, .red],

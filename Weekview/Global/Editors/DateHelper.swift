@@ -1,5 +1,5 @@
 //
-//  DateManager.swift
+//  DateHelper.swift
 //  Weekview
 //
 //  Created by Kay Boschmann on 05.11.18.
@@ -7,7 +7,7 @@
 //
 
 import Foundation
-class DateManager {
+class DateHelper {
     
     public static let formatter = DateFormatter()
     

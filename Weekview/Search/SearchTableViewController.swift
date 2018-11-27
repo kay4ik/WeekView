@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SearchTableViewController: UITableViewController {
+class SearchTableViewController: UITableViewController, RViewControllerProtocol {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private let reminderManager = ReminderManager.shared
@@ -18,20 +18,26 @@ class SearchTableViewController: UITableViewController {
     private var isSearching = false
     private var filteredData = [Reminder]()
     private var filteredDataDays = [[Reminder]]()
-    private var data: [Reminder]!
     private var dataDays: [[Reminder]]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
-        navigationController?.navigationBar.barStyle = settings.style
+        setUpBarStyles()
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        data = reminderManager.getAllReminders()
-        dataDays = searchManager.present(data)
+        dataDays = searchManager.present(reminderManager.getAllReminders())
+        tableView.reloadData()
     }
 
+    func setUpBarStyles() {
+        searchBar.barStyle = settings.barStyle
+        navigationController?.navigationBar.barStyle = settings.barStyle
+        navigationController?.navigationBar.tintColor = settings.barTintColor
+    }
+    
+    
     private func getReminder(index: IndexPath) -> Reminder {
         if isSearching {
             return filteredDataDays[index.section][index.row]
@@ -46,16 +52,16 @@ class SearchTableViewController: UITableViewController {
     override func numberOfSections(in tableView: UITableView) -> Int {
         if isSearching {
             let abc = searchManager.present(filteredData)
-            abc[0].count
+            return abc[0].count
         }
         return dataDays.count
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isSearching {
-            return DateManager.write(date: filteredDataDays[section].first!.date)
+            return DateHelper.write(date: filteredDataDays[section].first!.date)
         }
-        return DateManager.write(date: dataDays[section].first!.date)
+        return DateHelper.write(date: dataDays[section].first!.date)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,9 +86,9 @@ class SearchTableViewController: UITableViewController {
             reminder = dataDays[indexPath.section][indexPath.row]
         }
 
-        cell.priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: reminder.priority, colorMode: settings.colorMode)
+        cell.priorityLabel.backgroundColor = PriorityHelper.getColorOf(priority: reminder.priority, colorMode: settings.colorMode)
         cell.titleLabel.text = reminder.title
-        cell.dateLabel.text = DateManager.write(time: reminder.date)
+        cell.dateLabel.text = DateHelper.write(time: reminder.date)
         return cell
     }
     

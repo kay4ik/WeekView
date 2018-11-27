@@ -20,7 +20,7 @@ class HelpWebViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadingView.backgroundColor = settings.background
+        loadingView.backgroundColor = settings.backgroundColor
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,8 +33,8 @@ class HelpWebViewController: UIViewController {
     }
     
     func setupDesign() {
-        loadingView.backgroundColor = settings.background
-        let color = settings.mainText
+        loadingView.backgroundColor = settings.backgroundColor
+        let color = settings.mainTextColor
         titleLabel.textColor = color
         subtitleLabel.textColor = color
     }

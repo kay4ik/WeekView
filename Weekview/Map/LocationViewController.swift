@@ -10,10 +10,6 @@ import UIKit
 import MapKit
 import GooglePlaces
 
-protocol LocationViewControllerDelegate {
-    func LocationViewControllerDidSave(sender : LocationViewController, location: Location)
-}
-
 class LocationViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var streetLabel: UILabel!
@@ -52,7 +48,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let color = setting.background
+        let color = setting.backgroundColor
         titleView.backgroundColor = color
         searchView.backgroundColor = color
         locationView.backgroundColor = color
@@ -140,7 +136,7 @@ class LocationViewController: UIViewController, CLLocationManagerDelegate {
             uiAlert.addAction(UIAlertAction(title: "Okay", style: .default, handler: { action in
             }))
         } else {
-            delegate?.LocationViewControllerDidSave(sender: self, location: self.local!)
+            delegate?.locationViewController(sender: self, didSave: self.local!)
             navigationController?.popViewController(animated: true)
         }
     }

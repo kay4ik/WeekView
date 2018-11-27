@@ -34,7 +34,7 @@ class DetailTableViewController: UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         titleLabel.text = remind.title
-        dateLabel.text = DateManager.write(date: remind.date)
+        dateLabel.text = DateHelper.write(date: remind.date)
         handleLocationCell()
         handleNoticeCell()
         handlePriority()
@@ -66,8 +66,8 @@ class DetailTableViewController: UITableViewController {
     }
     
     func handlePriority() {
-        priorityColor.backgroundColor = PriorityMngr.getColorOf(priority: remind.priority, colorMode: settingControll.colorMode)
-        priorityText.text = PriorityMngr.getTextOf(priority: (remind.priority))
+        priorityColor.backgroundColor = PriorityHelper.getColorOf(priority: remind.priority, colorMode: settingControll.colorMode)
+        priorityText.text = PriorityHelper.getTextOf(priority: (remind.priority))
     }
     
     func handleStatus() {
@@ -114,11 +114,22 @@ class DetailTableViewController: UITableViewController {
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
-        if identifier == "showNotice" {
+        switch identifier {
+        case "showNotice":
             if !remind.isNoticeSet() {
                 print("BLOCKED")
                 return false
             }
+        
+        case "showLocation":
+            if remind.location == nil {
+                print("BLOCKED")
+                return false
+            }
+            
+        default:
+            return true
+            
         }
         return true
     }

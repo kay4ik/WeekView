@@ -10,7 +10,8 @@ import UIKit
 import JTAppleCalendar
 import UserNotifications
 
-class HomeViewController: UIViewController {
+class HomeViewController: UIViewController, RViewControllerProtocol {
+    
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var calendarView: JTAppleCalendarView!
     @IBOutlet weak var daysStack: UIStackView!
@@ -28,14 +29,11 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        calendarView.selectDates([Date()])
         navigationBar = navigationController?.navigationBar
         tabBar = self.tabBarController?.tabBar
-        tabBar?.barStyle = settings.style
-        setUpColors()
-        setupCalendarView()
-        scrollToToday()
-        list(date: Date())
+        tabBar?.barStyle = settings.barStyle
+        initializeDesign()
+        initializeCalendar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,11 +43,58 @@ class HomeViewController: UIViewController {
         reload()
     }
     
+    private func initializeDesign() {
+        setUpBarStyles()
+        setUpBackgroundColors()
+    }
+    
+    private func initializeCalendar() {
+        calendarView.selectDates([Date()])
+        setupCalendarView()
+        scrollToToday()
+        list(date: Date())
+    }
+    
     private func reload() {
         calendarView.reloadData()
         tableView.reloadData()
     }
     
+    func setUpBarStyles() {
+        let style = settings.barStyle
+        let tint = settings.barTintColor
+        navigationBar?.barStyle = style
+        navigationBar?.tintColor = tint
+        tabBar?.barStyle = style
+        tabBar?.tintColor = tint
+        for label in daysStack.subviews as! [UILabel] {
+            label.textColor = settings.subTextColor
+        }
+    }
+    
+    func setUpBackgroundColors() {
+        let color = settings.backgroundColor
+        backgroundView.backgroundColor = color
+        calendarView.backgroundColor = color
+        if settings.runtimeDarkMode == false {
+            backgroundView.layer.borderWidth = 1
+            backgroundView.layer.borderColor = Colors.lightBorder.cgColor
+        }
+    }
+    
+    func scrollToToday(){
+        calendarView.scrollToDate(Date(), animateScroll: false)
+        calendarView.selectDates(from: Date(), to: Date())
+    }
+    
+    @IBAction func scrollToday(_ sender: Any) {
+        scrollToToday()
+    }
+}
+
+
+//MARK: - Calendar Stuff
+extension HomeViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
     func setupCalendarView(){
         calendarView.minimumLineSpacing = 0
         calendarView.minimumInteritemSpacing = 0
@@ -67,59 +112,27 @@ class HomeViewController: UIViewController {
         navigationItem.title = month + " '"+year
     }
     
-    private func setUpColors() {
-        setUpBackgroundView()
-        let style = settings.style
-        let tint = settings.tint
-        navigationBar?.barStyle = style
-        navigationBar?.tintColor = tint
-        tabBar?.barStyle = style
-        tabBar?.tintColor = tint
-        for label in daysStack.subviews as! [UILabel] {
-            label.textColor = settings.subText
-        }
-    }
-    
-    private func setUpBackgroundView() {
-        let color = settings.background
-        backgroundView.backgroundColor = color
-        calendarView.backgroundColor = color
-        if settings.runtimeDarkMode == false {
-            backgroundView.layer.borderWidth = 1
-            backgroundView.layer.borderColor = Colors.lightBorder.cgColor
-        }
-    }
-    
-    @IBAction func scrollToday(_ sender: Any) {
-        scrollToToday()
-    }
-    
-    func scrollToToday(){
-        calendarView.scrollToDate(Date(), animateScroll: false)
-        calendarView.selectDates(from: Date(), to: Date())
-    }
-    
-    private func handleTextColors(validCell: RemindCollectionCell, cellState: CellState){
-        if cellState.isSelected {
-            validCell.dateLabel.textColor = settings.mainText
-        } else {
-            if cellState.dateBelongsTo == .thisMonth {
-                validCell.dateLabel.textColor = settings.mainText
-            } else {
-                validCell.dateLabel.textColor = UIColor.lightGray
-            }
-        }
-    }
-    
     private func handleCellSelected(validCell: RemindCollectionCell, cellState: CellState){
-        validCell.selectedView.backgroundColor = settings.background
+        validCell.selectedView.backgroundColor = settings.backgroundColor
         validCell.selectedView.layer.borderWidth = 2
-        validCell.selectedView.layer.borderColor = settings.mainText.cgColor
+        validCell.selectedView.layer.borderColor = settings.mainTextColor.cgColor
         
         if cellState.isSelected {
             validCell.selectedView.isHidden = false
         } else {
             validCell.selectedView.isHidden = true
+        }
+    }
+    
+    private func handleTextColors(validCell: RemindCollectionCell, cellState: CellState){
+        if cellState.isSelected {
+            validCell.dateLabel.textColor = settings.mainTextColor
+        } else {
+            if cellState.dateBelongsTo == .thisMonth {
+                validCell.dateLabel.textColor = settings.mainTextColor
+            } else {
+                validCell.dateLabel.textColor = UIColor.lightGray
+            }
         }
     }
     
@@ -130,18 +143,15 @@ class HomeViewController: UIViewController {
             cell.eventView.isHidden = true
         case 1:
             cell.eventView.isHidden = false
-            cell.eventView.backgroundColor = PriorityMngr.getColorOf(priority: 0, colorMode: settings.colorMode)
+            cell.eventView.backgroundColor = PriorityHelper.getColorOf(priority: 0, colorMode: settings.colorMode)
         case 2:
             cell.eventView.isHidden = false
-            cell.eventView.backgroundColor = PriorityMngr.getColorOf(priority: 2, colorMode: settings.colorMode)
+            cell.eventView.backgroundColor = PriorityHelper.getColorOf(priority: 2, colorMode: settings.colorMode)
         default:
             fatalError()
         }
     }
     
-}
-
-extension HomeViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDataSource {
     func calendar(_ calendar: JTAppleCalendarView, willDisplay cell: JTAppleCell, forItemAt date: Date, cellState: CellState, indexPath: IndexPath) {}
     
     func calendar(_ calendar: JTAppleCalendarView, cellForItemAt date: Date, cellState: CellState, indexPath: IndexPath) -> JTAppleCell {
@@ -197,6 +207,8 @@ extension HomeViewController: JTAppleCalendarViewDelegate, JTAppleCalendarViewDa
     }
 }
 
+
+//MARK: - Much Table View Stuff
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     private func handleNoDataLabel() {
         var value = false
@@ -221,9 +233,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         let actualReminder = getReminder(index: indexPath)
         cell.reminderid = actualReminder.id
         
-        cell.titleLabel.attributedText = strikeThrough(string: actualReminder.title, value: indexPath.section)
-        cell.dateLabel.text = DateManager.write(time: actualReminder.date)
-        cell.priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: actualReminder.priority, colorMode: settings.colorMode)
+        cell.titleLabel.attributedText =  actualReminder.title.strikeThrough(value: indexPath.section)
+        cell.dateLabel.text = DateHelper.write(time: actualReminder.date)
+        cell.priorityLabel.backgroundColor = PriorityHelper.getColorOf(priority: actualReminder.priority, colorMode: settings.colorMode)
         
         let font = getFont(style: actualReminder.priority)
         cell.titleLabel.font = font
@@ -261,14 +273,20 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     @available(iOS 11.0, *)
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let selectedReminder = self.getReminder(index: indexPath)
-        var action: UIContextualAction
+        var action: [UIContextualAction]
         if indexPath.section == 0 {
             let edit = UIContextualAction(style: .normal, title: "Bearbeiten", handler: { (action, index, nil)  in
                 print("Ofenne Erinnerung bearbeiten")
                 self.performSegue(withIdentifier: "editDirectly", sender: selectedReminder)
             })
             edit.backgroundColor = Colors.blue
-            action = edit
+            
+            let move = UIContextualAction(style: .normal, title: "Verschieben", handler: {(action, index, nil) in
+                print("Offene Erinnerung verschieben")
+                self.performSegue(withIdentifier: "moveDate", sender: selectedReminder)
+            })
+            move.backgroundColor = UIColor.gray
+            action = [edit, move]
         } else {
             let del = UIContextualAction(style: .destructive, title: "Löschen", handler: { (action, index, nil) in
                 print("erledigte löschen")
@@ -276,10 +294,9 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
                 self.list(date: self.calendarView.selectedDates[0])
                 self.reload()
             })
-            //del.backgroundColor = UIColor.red
-            action = del
+            action = [del]
         }
-        return UISwipeActionsConfiguration(actions: [action])
+        return UISwipeActionsConfiguration(actions: action)
     }
     
     @available(iOS 11.0, *)
@@ -346,12 +363,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    private func strikeThrough(string: String, value: Int) -> NSMutableAttributedString {
-        let attributedString = NSMutableAttributedString(string: string)
-        attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: value, range: NSMakeRange(0, attributedString.length))
-        return attributedString
-    }
-    
     private func getFont(style: Int) -> UIFont {
         var weight = UIFont.Weight.regular
         if style == 2 { weight = .bold }
@@ -359,7 +370,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension HomeViewController: ScrollingDelegate {
+extension HomeViewController: ScrollingDelegate, MoveDateDelegate {
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         
@@ -382,19 +394,30 @@ extension HomeViewController: ScrollingDelegate {
             reminderEditViewController.alreadyExist = true
             
         case "fastScroll":
-            guard let viewController = segue.destination as? ScrollingPopUp
-                else {
-                    fatalError("Unexpected destination: \(segue.destination)")
-            }
-            viewController.delegate = self
+            guard let scrollingPopUp = segue.destination as? ScrollingPopUp
+                else { fatalError("Unexpected destination: \(segue.destination)") }
+            scrollingPopUp.delegate = self
+            
+        case "moveDate":
+            guard let moveDatePopUp = segue.destination as? MoveDatePopUp
+                else { fatalError("Unexpected destination: \(segue.destination)") }
+            moveDatePopUp.delegate = self
+            moveDatePopUp.reminder = (sender as? Reminder)!
             
         default:
             fatalError("Unexpected Identifier")
         }
     }
     
-    func didSelectDate(sender: ScrollingPopUp, date: Date) {
+    func scrollingPopUp(sender: ScrollingPopUp, wantScrollTo date: Date) {
         calendarView.scrollToDate(date)
         calendarView.selectDates([date])
+    }
+    
+    func moveDatePopUp(selectedNew date: Date, for reminder: Reminder) {
+        reminder.date = date
+        self.remindController.update(reminder)
+        list(date: calendarView.selectedDates.first!)
+        reload()
     }
 }

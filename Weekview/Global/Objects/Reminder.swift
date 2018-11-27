@@ -10,7 +10,6 @@ import UIKit
 import MapKit
 
 class Reminder: NSObject, NSCoding {
-    private let dateManager = DateManager.shared
     private let formatter = DateFormatter()
     
 //     MARK: Properties

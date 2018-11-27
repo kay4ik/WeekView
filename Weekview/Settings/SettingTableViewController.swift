@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SettingTableViewController: UITableViewController {
+class SettingTableViewController: UITableViewController, RViewControllerProtocol {
     private let setting = Settings.shared
     private let remindController = ReminderManager.shared
     
@@ -23,9 +23,7 @@ class SettingTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setSwitches()
-        let navigation = navigationController?.navigationBar
-        navigation?.barStyle = setting.style
-        navigation?.tintColor = setting.tint
+        setUpBarStyles()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -33,9 +31,15 @@ class SettingTableViewController: UITableViewController {
         setColorModeLabel(setting.colorMode)
     }
 
+    func setUpBarStyles() {
+        let navigation = navigationController?.navigationBar
+        navigation?.barStyle = setting.barStyle
+        navigation?.tintColor = setting.barTintColor
+    }
+    
     // MARK: - Actions
     @IBAction func changeTrafficMode(_ sender: Any) {
-        setting.showTraffic = trafficSwitch.isOn
+        setting.mapShowTraffic = trafficSwitch.isOn
     }
     
     @IBAction func changeDarkMode(_ sender: Any) {
@@ -134,7 +138,7 @@ class SettingTableViewController: UITableViewController {
     
     private func setSwitches() {
         darkModeSwitch.setOn(setting.runtimeDarkMode, animated: false)
-        trafficSwitch.setOn(setting.showTraffic, animated: false)
+        trafficSwitch.setOn(setting.mapShowTraffic, animated: false)
         sortModeSwitch.setOn(setting.sortOnTime, animated: false)
         showDoneReminderSwitch.setOn(setting.showDoneReminders, animated: false)
     }

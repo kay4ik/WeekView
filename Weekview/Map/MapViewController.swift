@@ -42,24 +42,24 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     
     private func setupDesign() {
-        toolbar.barStyle = settings.style
-        toolbar.tintColor = settings.tint
-        detailView.backgroundColor = settings.background
+        toolbar.barStyle = settings.barStyle
+        toolbar.tintColor = settings.barTintColor
+        detailView.backgroundColor = settings.backgroundColor
         detailView.alpha = 0.9
     
         for subview in detailView.subviews {
             if let label = subview as? UILabel {
-                label.textColor = settings.mainText
+                label.textColor = settings.mainTextColor
             }
             else if let button = subview as? UIButton {
-                button.tintColor = settings.tint
+                button.tintColor = settings.barTintColor
             }
         }
         
     }
     
     private func useSettings() {
-        mapView.showsTraffic = settings.showTraffic
+        mapView.showsTraffic = settings.mapShowTraffic
         mapView.showsCompass = true
         mapView.mapType = getMapType(settings.mapType)
     }

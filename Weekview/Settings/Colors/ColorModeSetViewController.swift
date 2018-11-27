@@ -25,9 +25,9 @@ class ColorModeSetViewController: UIViewController {
     }
     
     private func changeColorsTo(mode: Int) {
-        prioHighView.backgroundColor = PriorityMngr.getColorOf(priority: 2, colorMode: mode)
-        prioMidView.backgroundColor = PriorityMngr.getColorOf(priority: 1, colorMode: mode)
-        prioLowView.backgroundColor = PriorityMngr.getColorOf(priority: 0, colorMode: mode)
+        prioHighView.backgroundColor = PriorityHelper.getColorOf(priority: 2, colorMode: mode)
+        prioMidView.backgroundColor = PriorityHelper.getColorOf(priority: 1, colorMode: mode)
+        prioLowView.backgroundColor = PriorityHelper.getColorOf(priority: 0, colorMode: mode)
     }
     
     private func change(mode: Int) {

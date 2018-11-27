@@ -8,15 +8,13 @@
 import MapKit
 import UIKit
 class Settings {
-//    var options = Options()
-//    var bar = Bar()
     public var runtimeDarkMode: Bool!
     
     public func loadStandardSettings() {
         darkMode = false
         colorMode = 0
         sortOnTime = true
-        showTraffic = false
+        mapShowTraffic = false
         mapType = 0
     }
     
@@ -36,8 +34,6 @@ class Settings {
         return Static.sharedInstance
     }
     
-    
-    //MARK: - OPTIONS
     // MARK: - Design Settings
     private var darkMode: Bool{ //RUNTIME VAR IN CONTROLLER
         get {
@@ -90,7 +86,7 @@ class Settings {
     }
     
     // MARK: - Map Settings
-    var showTraffic: Bool{
+    var mapShowTraffic: Bool{
         get {
             if isNotSet(key: "showTraffic") {
                 return false
@@ -116,14 +112,14 @@ class Settings {
     
     
     //MARK: - Bar Options
-    var style: UIBarStyle {
+    var barStyle: UIBarStyle {
         get {
             if runtimeDarkMode { return UIBarStyle.black }
             else { return UIBarStyle.default }
         }
     }
     
-    var tint: UIColor {
+    var barTintColor: UIColor {
         get {
             if runtimeDarkMode { return UIColor.white }
             else { return Colors.defBlue }
@@ -131,21 +127,21 @@ class Settings {
     }
     
     //MARK: - Color Otions
-    var background: UIColor{
+    var backgroundColor: UIColor{
         get {
             if runtimeDarkMode { return Colors.darkBackground }
             else { return Colors.lightBack }
         }
     }
     
-    var mainText: UIColor {
+    var mainTextColor: UIColor {
         get {
             if runtimeDarkMode { return UIColor.white }
             else { return UIColor.black }
         }
     }
     
-    var subText: UIColor{
+    var subTextColor: UIColor{
         get{
             if runtimeDarkMode { return UIColor.lightGray }
             else { return UIColor.gray}

@@ -21,7 +21,7 @@ class ShowLocationPopUp: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationBar.backgroundColor = setting.background
+        navigationBar.backgroundColor = setting.backgroundColor
         mapView.showsScale = true
         mapView.showsUserLocation = true
         mapView.showsTraffic = traffic

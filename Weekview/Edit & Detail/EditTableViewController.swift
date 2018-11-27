@@ -9,8 +9,7 @@
 import UIKit
 import MapKit
 
-class EditTableViewController: UITableViewController {
-
+class EditTableViewController: UITableViewController, RViewControllerProtocol {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var noticeTextView: UITextView!
@@ -18,7 +17,6 @@ class EditTableViewController: UITableViewController {
     @IBOutlet weak var priorityPicker: UISegmentedControl!
     @IBOutlet weak var priorityLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
     
     var navigationBar: UINavigationBar?
     
@@ -36,8 +34,7 @@ class EditTableViewController: UITableViewController {
         titleTextField.delegate = self
         noticeTextView.delegate = self
         datePicker.locale = NSLocale(localeIdentifier: "de_DE") as Locale
-        setupBackground()
-        mapView.removeAnnotations(mapView.annotations)
+        setUpBarStyles()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -51,28 +48,7 @@ class EditTableViewController: UITableViewController {
             setReminderData()
             navigationItem.title = "Bearbeiten"
         }
-        showLocation()
         setNoticeText()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        handleMapView()
-    }
-    
-    private func handleMapView() {
-        let title: String
-        if remind!.title == "" {
-            title = "Neue Erinnerung"
-        }
-        else {
-            title = remind!.title
-        }
-        
-        if remind!.location != nil {
-            let location = remind!.location!.coordinates
-            display(location: location, titel: title, subtitel: "")
-        }
-        
     }
     
     private func setReminderData(){
@@ -80,15 +56,13 @@ class EditTableViewController: UITableViewController {
         datePicker.date = remind!.date
         noticeTextView.text = remind!.notice
         priorityPicker.selectedSegmentIndex = (remind!.priority)
-        priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: (remind!.priority), colorMode: setting.colorMode)
+        priorityLabel.backgroundColor = PriorityHelper.getColorOf(priority: (remind!.priority), colorMode: setting.colorMode)
     }
     
     private func showLocation() {
         if remind!.location == nil {
             locationLabel.text = "Kein Standort festgelegt."
-            mapView.isHidden = true
         } else {
-            mapView.isHidden = false
             locationLabel.text = remind!.location?.getAddress()
         }
     }
@@ -102,9 +76,9 @@ class EditTableViewController: UITableViewController {
         }
     }
     
-    private func setupBackground(){
-        let barStyle = setting.style
-        let barTint = setting.tint
+    func setUpBarStyles() {
+        let barStyle = setting.barStyle
+        let barTint = setting.barTintColor
         navigationBar?.barStyle = barStyle
         navigationBar?.tintColor = barTint
     }
@@ -163,7 +137,7 @@ class EditTableViewController: UITableViewController {
     @IBAction func prioPickerChanged(_ sender: Any) {
         let selected = priorityPicker.selectedSegmentIndex
         remind!.priority = selected
-        priorityLabel.backgroundColor = PriorityMngr.getColorOf(priority: selected, colorMode: setting.colorMode)
+        priorityLabel.backgroundColor = PriorityHelper.getColorOf(priority: selected, colorMode: setting.colorMode)
     }
     
     // MARK: - Navigation
@@ -200,26 +174,9 @@ extension EditTableViewController: UITextFieldDelegate, UITextViewDelegate {
         }
     }
 }
-extension EditTableViewController {
-    func display(location: CLLocation, titel: String?, subtitel: String?){
-        if mapView.annotations.count > 0 {
-            mapView.removeAnnotations(mapView.annotations)
-        }
-        let coordinate = location.coordinate
-        mapView.setRegion(MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: coordinate.latitude , longitude: coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)), animated: true)
-        
-        let locationPinCoord = CLLocationCoordinate2DMake(coordinate.latitude, coordinate.longitude)
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = locationPinCoord
-        annotation.title = titel ?? ""
-        annotation.subtitle = subtitel ?? ""
-        
-        mapView.addAnnotation(annotation)
-        mapView.showAnnotations([annotation], animated: true)
-    }
-}
+
 extension EditTableViewController: LocationViewControllerDelegate {
-    func LocationViewControllerDidSave(sender: LocationViewController, location: Location) {
+    func locationViewController(sender: LocationViewController, didSave location: Location) {
         remind!.location = location
         locationLabel.text = remind!.getOneRowLocation()
     }

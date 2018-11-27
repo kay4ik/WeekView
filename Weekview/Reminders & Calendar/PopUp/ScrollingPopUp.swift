@@ -8,10 +8,6 @@
 import UIKit
 import JTAppleCalendar
 
-protocol ScrollingDelegate {
-    func didSelectDate(sender: ScrollingPopUp, date: Date)
-}
-
 class ScrollingPopUp: UIViewController {
     let setting = Settings.shared
     let remindControll = ReminderManager.shared
@@ -36,15 +32,15 @@ class ScrollingPopUp: UIViewController {
     
     private func layoutViews() {
         toolBar.roundCorners(corners: [.topLeft, .topRight], radius: 15)
-        mainView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
+        //mainView.roundCorners(corners: [.topLeft, .topRight], radius: 15)
     }
     
     private func setUpBackground() {
-        let color = setting.background
+        let color = setting.backgroundColor
         mainView.backgroundColor = color
         calendarView.backgroundColor = color
-        titleLabel.textColor = setting.mainText
-        toolBar.barStyle = setting.style
+        titleLabel.textColor = setting.mainTextColor
+        toolBar.barStyle = setting.barStyle
     }
     
     func setupCalendarView(){
@@ -72,7 +68,7 @@ class ScrollingPopUp: UIViewController {
     }
     
     private func handleCellSelected(validCell: ScrollingCell, cellState: CellState){
-        validCell.selectedView.backgroundColor = setting.background
+        validCell.selectedView.backgroundColor = setting.backgroundColor
         validCell.selectedView.layer.borderWidth = 2
         validCell.selectedView.layer.borderColor = UIColor.white.cgColor
         
@@ -85,9 +81,9 @@ class ScrollingPopUp: UIViewController {
     
     private func handleTextColors(validCell: ScrollingCell, cellState: CellState){
         if cellState.dateBelongsTo == .thisMonth {
-            validCell.dateLabel.textColor = setting.mainText
+            validCell.dateLabel.textColor = setting.mainTextColor
         } else {
-            validCell.dateLabel.textColor = setting.subText
+            validCell.dateLabel.textColor = setting.subTextColor
         }
     }
     
@@ -116,7 +112,7 @@ class ScrollingPopUp: UIViewController {
     }
     
     @IBAction func goToDate(_ sender: Any) {
-        delegate?.didSelectDate(sender: self, date: selectedDate)
+        delegate?.scrollingPopUp(sender: self, wantScrollTo: selectedDate)
         dismiss(animated: true, completion: nil)
     }
     

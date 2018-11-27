@@ -9,6 +9,7 @@
 import Foundation
 
 class ReminderManager {
+    
     private var reminders = Set<Reminder>()
     private let settings = Settings.shared
     
@@ -52,9 +53,9 @@ class ReminderManager {
     public func getAll(of date: Date, wichAreDone done: Bool?) -> [Reminder]{
         var value: [Reminder]
         if done != nil {
-            value = reminders.filter({DateManager.isSame(date: date, like: $0.date) && $0.done == done})
+            value = reminders.filter({DateHelper.isSame(date: date, like: $0.date) && $0.done == done})
         } else {
-            value = reminders.filter({DateManager.isSame(date: date, like: $0.date)})
+            value = reminders.filter({DateHelper.isSame(date: date, like: $0.date)})
         }
         value = sort(value)
         return value
@@ -83,8 +84,8 @@ class ReminderManager {
     }
     
     public func isThereA(reminder at: Date) -> Int {
-        let date = DateManager.write(date: at)
-        let dateCheck = reminders.filter({DateManager.write(date: $0.date) == date && !$0.done})
+        let date = DateHelper.write(date: at)
+        let dateCheck = reminders.filter({DateHelper.write(date: $0.date) == date && !$0.done})
         
         if dateCheck.count <= 0 {
             return 0 //No Reminder
@@ -111,26 +112,23 @@ class ReminderManager {
     }
     
     public func loadSamples() {
-        insert(ReminderManager.sampleOne)
-        insert(ReminderManager.sampleTwo)
-        insert(ReminderManager.sampleThree)
+        insert(Samples.one)
+        insert(Samples.two)
+        insert(Samples.three)
     }
     
     // MARK: - Data of SearchFeature
     public func search(for Title: String) -> [Reminder] {
+        var returning: [Reminder]
         let result = reminders.filter({(item: Reminder) -> Bool in
             let stringMatch = item.title.lowercased().range(of: Title.lowercased())
             return stringMatch != nil ? true : false
         })
-        if !settings.showDoneReminders {
-            return Array(filterDonesOut(of: Array(result)))
-        }
-        return Array(result)
+        returning = Array(result)
+        returning.sort(by: { $0.date < $1.date})
+        return returning
     }
     
-    private func filterDonesOut(of: [Reminder]) -> [Reminder] {
-        return of.filter({$0.done == false})
-    }
     
     //MARK: - Encodings
     public func save() {
@@ -153,30 +151,4 @@ class ReminderManager {
             print("ReminderManager: Reminders loaded")
         }
     }
-}
-
-extension ReminderManager {
-    static let sampleOne = Reminder(
-        title: "Beispiel 1",
-        date: Calendar.current.date(byAdding: Calendar.Component.hour, value: 2, to: Date())!,
-        notice: "Wie gefällt ihnen WeekView?",
-        priority: 0,
-        done: false,
-        location: nil)
-    
-    static let sampleTwo = Reminder(
-        title: "Erledigter Beispiel 2",
-        date: Calendar.current.date(byAdding: Calendar.Component.hour, value: 5, to: Date())!,
-        notice: "Das ist eine Notiz.",
-        priority: 1,
-        done: true,
-        location: nil)
-    
-    static let sampleThree = Reminder(
-        title: "Ein anderes Beispiel",
-        date: Calendar.current.date(byAdding: Calendar.Component.day, value: 1, to: Date())!,
-        notice: "Keine Notiz",
-        priority: 2,
-        done: false,
-        location: nil)
 }
