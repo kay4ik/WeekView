@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AA0E900D219320FF00E00D97 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E900C219320FF00E00D97 /* HomeViewController.swift */; };
-		AA38A5C921AD56D60017ADE9 /* SampleReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38A5C821AD56D60017ADE9 /* SampleReminders.swift */; };
 		AA49A3D2217E2F7400443BEF /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49A3D1217E2F7400443BEF /* SettingTableViewController.swift */; };
 		AA52A39821A71F66005220CD /* MoveDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA52A39721A71F66005220CD /* MoveDatePopUp.swift */; };
 		AA5620A1217F229000928897 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5620A0217F229000928897 /* DetailTableViewController.swift */; };
@@ -20,6 +19,7 @@
 		AA7936F9219037A300AB105F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7936F8219037A300AB105F /* DateHelper.swift */; };
 		AA9AFEF521F090EF005F7961 /* ExtendableToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9AFEF421F090EF005F7961 /* ExtendableToolbar.swift */; };
 		AA9C7D94217F56E2006F87A6 /* EditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9C7D93217F56E2006F87A6 /* EditTableViewController.swift */; };
+		AAB4F4E321F75AEE00A3D994 /* sampleReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB4F4E221F75AEE00A3D994 /* sampleReminders.swift */; };
 		AAB53BA4218315F800A881A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB53BA3218315F800A881A6 /* MapViewController.swift */; };
 		AAB8A6D92189D726003F0F3F /* ColorModeSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8A6D82189D726003F0F3F /* ColorModeSetViewController.swift */; };
 		AAB8A6DC2189E620003F0F3F /* ReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8A6DB2189E620003F0F3F /* ReminderManager.swift */; };
@@ -88,7 +88,6 @@
 		4DC42B78752C1576B970FE78 /* Pods_Weekview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weekview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DFDC1E95C1D88B15A1DF5D /* Pods_WeekviewTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeekviewTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0E900C219320FF00E00D97 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		AA38A5C821AD56D60017ADE9 /* SampleReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleReminders.swift; sourceTree = "<group>"; };
 		AA49A3D1217E2F7400443BEF /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = Weekview/Settings/SettingTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA52A39721A71F66005220CD /* MoveDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveDatePopUp.swift; sourceTree = "<group>"; };
 		AA5620A0217F229000928897 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
@@ -100,6 +99,7 @@
 		AA7936F8219037A300AB105F /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		AA9AFEF421F090EF005F7961 /* ExtendableToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendableToolbar.swift; sourceTree = "<group>"; };
 		AA9C7D93217F56E2006F87A6 /* EditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewController.swift; sourceTree = "<group>"; };
+		AAB4F4E221F75AEE00A3D994 /* sampleReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleReminders.swift; sourceTree = "<group>"; };
 		AAB53BA3218315F800A881A6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AAB8A6D82189D726003F0F3F /* ColorModeSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModeSetViewController.swift; sourceTree = "<group>"; };
 		AAB8A6DB2189E620003F0F3F /* ReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderManager.swift; sourceTree = "<group>"; };
@@ -256,7 +256,7 @@
 				AA52A38E21A70735005220CD /* Objects */,
 				F138F2631FCC3D52009BF613 /* Cells */,
 				AABFF6962188718600B7A3EA /* Colors.swift */,
-				AA38A5C821AD56D60017ADE9 /* SampleReminders.swift */,
+				AAB4F4E221F75AEE00A3D994 /* sampleReminders.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -623,7 +623,6 @@
 				AA49A3D2217E2F7400443BEF /* SettingTableViewController.swift in Sources */,
 				AACC54AF21A81BDE001761F1 /* MoveDateDelegate.swift in Sources */,
 				F17BAFD71F987DBB00B6E612 /* RemindCollectionCell.swift in Sources */,
-				AA38A5C921AD56D60017ADE9 /* SampleReminders.swift in Sources */,
 				AA5620A3217F3BF700928897 /* ShowNoticePopUp.swift in Sources */,
 				F1EA38AB1F6801A3002A38B2 /* Reminder.swift in Sources */,
 				AA0E900D219320FF00E00D97 /* HomeViewController.swift in Sources */,
@@ -660,6 +659,7 @@
 				AACC54B621A82668001761F1 /* StringExtension.swift in Sources */,
 				F19C0C5E1FE005A500A46F33 /* ScrollingPopUp.swift in Sources */,
 				F1733B471FBAEC33009B5243 /* Settings.swift in Sources */,
+				AAB4F4E321F75AEE00A3D994 /* sampleReminders.swift in Sources */,
 				AACC54A721A81963001761F1 /* RViewControllerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

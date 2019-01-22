@@ -1,9 +1,9 @@
 //
-//  sampleReminders.swift
+//  SampleReminders.swift
 //  Weekview
 //
-//  Created by Kay Boschmann on 27.11.18.
-//  Copyright © 2018 Kaufland Informationssysteme GmbH & Co. KG. All rights reserved.
+//  Created by Kay Boschmann on 22.01.19.
+//  Copyright © 2019 Kaufland Informationssysteme GmbH & Co. KG. All rights reserved.
 //
 
 import Foundation
