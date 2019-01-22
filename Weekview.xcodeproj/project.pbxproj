@@ -8,18 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		AA0E900D219320FF00E00D97 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0E900C219320FF00E00D97 /* HomeViewController.swift */; };
-		AA38A5C921AD56D60017ADE9 /* sampleReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38A5C821AD56D60017ADE9 /* sampleReminders.swift */; };
+		AA38A5C921AD56D60017ADE9 /* SampleReminders.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA38A5C821AD56D60017ADE9 /* SampleReminders.swift */; };
 		AA49A3D2217E2F7400443BEF /* SettingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA49A3D1217E2F7400443BEF /* SettingTableViewController.swift */; };
 		AA52A39821A71F66005220CD /* MoveDatePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA52A39721A71F66005220CD /* MoveDatePopUp.swift */; };
 		AA5620A1217F229000928897 /* DetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5620A0217F229000928897 /* DetailTableViewController.swift */; };
-		AA5620A3217F3BF700928897 /* ShowNoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5620A2217F3BF700928897 /* ShowNoticeViewController.swift */; };
+		AA5620A3217F3BF700928897 /* ShowNoticePopUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA5620A2217F3BF700928897 /* ShowNoticePopUp.swift */; };
+		AA56272A21B9A91B00CA8B66 /* DateExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA56272921B9A91B00CA8B66 /* DateExtension.swift */; };
+		AA56272C21B9C71B00CA8B66 /* WVNotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA56272B21B9C71B00CA8B66 /* WVNotificationHelper.swift */; };
 		AA761157219EF3A800864930 /* SearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA761156219EF3A800864930 /* SearchTableViewController.swift */; };
 		AA76115B219EF95000864930 /* SearchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA76115A219EF95000864930 /* SearchManager.swift */; };
 		AA7936F9219037A300AB105F /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA7936F8219037A300AB105F /* DateHelper.swift */; };
+		AA9AFEF521F090EF005F7961 /* ExtendableToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9AFEF421F090EF005F7961 /* ExtendableToolbar.swift */; };
 		AA9C7D94217F56E2006F87A6 /* EditTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA9C7D93217F56E2006F87A6 /* EditTableViewController.swift */; };
 		AAB53BA4218315F800A881A6 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB53BA3218315F800A881A6 /* MapViewController.swift */; };
 		AAB8A6D92189D726003F0F3F /* ColorModeSetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8A6D82189D726003F0F3F /* ColorModeSetViewController.swift */; };
 		AAB8A6DC2189E620003F0F3F /* ReminderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAB8A6DB2189E620003F0F3F /* ReminderManager.swift */; };
+		AABC3F7921AD7E2500354F20 /* AuthorizationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC3F7821AD7E2500354F20 /* AuthorizationManager.swift */; };
+		AABC3F7B21AD8EC600354F20 /* nLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABC3F7A21AD8EC600354F20 /* nLocation.swift */; };
 		AABFF691218847EE00B7A3EA /* MapModeSetTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFF690218847EE00B7A3EA /* MapModeSetTableViewController.swift */; };
 		AABFF6972188718600B7A3EA /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AABFF6962188718600B7A3EA /* Colors.swift */; };
 		AACC54A721A81963001761F1 /* RViewControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = AACC54A621A81963001761F1 /* RViewControllerProtocol.swift */; };
@@ -83,18 +88,23 @@
 		4DC42B78752C1576B970FE78 /* Pods_Weekview.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weekview.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DFDC1E95C1D88B15A1DF5D /* Pods_WeekviewTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WeekviewTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA0E900C219320FF00E00D97 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		AA38A5C821AD56D60017ADE9 /* sampleReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleReminders.swift; sourceTree = "<group>"; };
+		AA38A5C821AD56D60017ADE9 /* SampleReminders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleReminders.swift; sourceTree = "<group>"; };
 		AA49A3D1217E2F7400443BEF /* SettingTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SettingTableViewController.swift; path = Weekview/Settings/SettingTableViewController.swift; sourceTree = SOURCE_ROOT; };
 		AA52A39721A71F66005220CD /* MoveDatePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveDatePopUp.swift; sourceTree = "<group>"; };
 		AA5620A0217F229000928897 /* DetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableViewController.swift; sourceTree = "<group>"; };
-		AA5620A2217F3BF700928897 /* ShowNoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNoticeViewController.swift; sourceTree = "<group>"; };
+		AA5620A2217F3BF700928897 /* ShowNoticePopUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowNoticePopUp.swift; sourceTree = "<group>"; };
+		AA56272921B9A91B00CA8B66 /* DateExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtension.swift; sourceTree = "<group>"; };
+		AA56272B21B9C71B00CA8B66 /* WVNotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WVNotificationHelper.swift; sourceTree = "<group>"; };
 		AA761156219EF3A800864930 /* SearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewController.swift; sourceTree = "<group>"; };
 		AA76115A219EF95000864930 /* SearchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchManager.swift; sourceTree = "<group>"; };
 		AA7936F8219037A300AB105F /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		AA9AFEF421F090EF005F7961 /* ExtendableToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendableToolbar.swift; sourceTree = "<group>"; };
 		AA9C7D93217F56E2006F87A6 /* EditTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditTableViewController.swift; sourceTree = "<group>"; };
 		AAB53BA3218315F800A881A6 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		AAB8A6D82189D726003F0F3F /* ColorModeSetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorModeSetViewController.swift; sourceTree = "<group>"; };
 		AAB8A6DB2189E620003F0F3F /* ReminderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderManager.swift; sourceTree = "<group>"; };
+		AABC3F7821AD7E2500354F20 /* AuthorizationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationManager.swift; sourceTree = "<group>"; };
+		AABC3F7A21AD8EC600354F20 /* nLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nLocation.swift; sourceTree = "<group>"; };
 		AABFF690218847EE00B7A3EA /* MapModeSetTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModeSetTableViewController.swift; sourceTree = "<group>"; };
 		AABFF6962188718600B7A3EA /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		AACC54A621A81963001761F1 /* RViewControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RViewControllerProtocol.swift; sourceTree = "<group>"; };
@@ -176,6 +186,7 @@
 		AA52A38C21A706E7005220CD /* Map */ = {
 			isa = PBXGroup;
 			children = (
+				AA9AFEF321F09068005F7961 /* Modify Classes */,
 				F12806641FBD9AB40036780E /* LocationViewController.swift */,
 				F123B07D1FDA956F008C29B1 /* ShowLocationPopUp.swift */,
 				AAB53BA3218315F800A881A6 /* MapViewController.swift */,
@@ -198,6 +209,7 @@
 				F1733B461FBAEC33009B5243 /* Settings.swift */,
 				F1EA38AA1F6801A3002A38B2 /* Reminder.swift */,
 				F1A7006F1FC46921008A961D /* Location.swift */,
+				AABC3F7A21AD8EC600354F20 /* nLocation.swift */,
 			);
 			path = Objects;
 			sourceTree = "<group>";
@@ -229,7 +241,7 @@
 		AA52A39221A707A4005220CD /* PopUp */ = {
 			isa = PBXGroup;
 			children = (
-				AA5620A2217F3BF700928897 /* ShowNoticeViewController.swift */,
+				AA5620A2217F3BF700928897 /* ShowNoticePopUp.swift */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -240,11 +252,11 @@
 				AA52A39521A70810005220CD /* Managers */,
 				AACC54A421A8190B001761F1 /* Protocols */,
 				AACC54B021A8260D001761F1 /* Extensions */,
-				AA52A39621A70833005220CD /* Editors */,
+				AA52A39621A70833005220CD /* Helper */,
 				AA52A38E21A70735005220CD /* Objects */,
 				F138F2631FCC3D52009BF613 /* Cells */,
 				AABFF6962188718600B7A3EA /* Colors.swift */,
-				AA38A5C821AD56D60017ADE9 /* sampleReminders.swift */,
+				AA38A5C821AD56D60017ADE9 /* SampleReminders.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -255,17 +267,19 @@
 				F138F2661FCC3E72009BF613 /* NotificationController.swift */,
 				F12806621FBD99180036780E /* LocationManager.swift */,
 				AAB8A6DB2189E620003F0F3F /* ReminderManager.swift */,
+				AABC3F7821AD7E2500354F20 /* AuthorizationManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		AA52A39621A70833005220CD /* Editors */ = {
+		AA52A39621A70833005220CD /* Helper */ = {
 			isa = PBXGroup;
 			children = (
 				AA7936F8219037A300AB105F /* DateHelper.swift */,
 				F13DB21B1FB0AC4800E3DFAE /* PriorityHelper.swift */,
+				AA56272B21B9C71B00CA8B66 /* WVNotificationHelper.swift */,
 			);
-			path = Editors;
+			path = Helper;
 			sourceTree = "<group>";
 		};
 		AA761155219EF38B00864930 /* Search */ = {
@@ -275,6 +289,14 @@
 				AA761156219EF3A800864930 /* SearchTableViewController.swift */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		AA9AFEF321F09068005F7961 /* Modify Classes */ = {
+			isa = PBXGroup;
+			children = (
+				AA9AFEF421F090EF005F7961 /* ExtendableToolbar.swift */,
+			);
+			path = "Modify Classes";
 			sourceTree = "<group>";
 		};
 		AAB8A6DA2189E3D7003F0F3F /* Reminders & Calendar */ = {
@@ -314,6 +336,7 @@
 				AACC54B121A82624001761F1 /* UIViewExtension.swift */,
 				AACC54B321A82644001761F1 /* UIColorExtension.swift */,
 				AACC54B521A82668001761F1 /* StringExtension.swift */,
+				AA56272921B9A91B00CA8B66 /* DateExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -600,8 +623,8 @@
 				AA49A3D2217E2F7400443BEF /* SettingTableViewController.swift in Sources */,
 				AACC54AF21A81BDE001761F1 /* MoveDateDelegate.swift in Sources */,
 				F17BAFD71F987DBB00B6E612 /* RemindCollectionCell.swift in Sources */,
-				AA38A5C921AD56D60017ADE9 /* sampleReminders.swift in Sources */,
-				AA5620A3217F3BF700928897 /* ShowNoticeViewController.swift in Sources */,
+				AA38A5C921AD56D60017ADE9 /* SampleReminders.swift in Sources */,
+				AA5620A3217F3BF700928897 /* ShowNoticePopUp.swift in Sources */,
 				F1EA38AB1F6801A3002A38B2 /* Reminder.swift in Sources */,
 				AA0E900D219320FF00E00D97 /* HomeViewController.swift in Sources */,
 				AACC54AD21A81BB7001761F1 /* ScrollingDelegate.swift in Sources */,
@@ -614,6 +637,7 @@
 				AABFF6972188718600B7A3EA /* Colors.swift in Sources */,
 				F1E78ED41F5E92C600FDDDFA /* AppDelegate.swift in Sources */,
 				F12806651FBD9AB40036780E /* LocationViewController.swift in Sources */,
+				AABC3F7B21AD8EC600354F20 /* nLocation.swift in Sources */,
 				AA9C7D94217F56E2006F87A6 /* EditTableViewController.swift in Sources */,
 				AA5620A1217F229000928897 /* DetailTableViewController.swift in Sources */,
 				F138F2671FCC3E72009BF613 /* NotificationController.swift in Sources */,
@@ -622,11 +646,15 @@
 				F12806631FBD99180036780E /* LocationManager.swift in Sources */,
 				AACC54B421A82644001761F1 /* UIColorExtension.swift in Sources */,
 				AA761157219EF3A800864930 /* SearchTableViewController.swift in Sources */,
+				AA56272C21B9C71B00CA8B66 /* WVNotificationHelper.swift in Sources */,
 				F13DB21C1FB0AC4800E3DFAE /* PriorityHelper.swift in Sources */,
 				AABFF691218847EE00B7A3EA /* MapModeSetTableViewController.swift in Sources */,
 				F123B07E1FDA956F008C29B1 /* ShowLocationPopUp.swift in Sources */,
 				AAB53BA4218315F800A881A6 /* MapViewController.swift in Sources */,
 				F128065F1FBD870B0036780E /* HelpWebViewController.swift in Sources */,
+				AA56272A21B9A91B00CA8B66 /* DateExtension.swift in Sources */,
+				AABC3F7921AD7E2500354F20 /* AuthorizationManager.swift in Sources */,
+				AA9AFEF521F090EF005F7961 /* ExtendableToolbar.swift in Sources */,
 				F1421BAC1F692FC40072DA31 /* ReminderTableViewCell.swift in Sources */,
 				AA76115B219EF95000864930 /* SearchManager.swift in Sources */,
 				AACC54B621A82668001761F1 /* StringExtension.swift in Sources */,

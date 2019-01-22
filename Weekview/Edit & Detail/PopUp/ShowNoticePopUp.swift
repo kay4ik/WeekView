@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShowNoticeViewController: UIViewController {
+class ShowNoticePopUp: UIViewController {
     private let settings = Settings.shared
     var notice = "Keine Notiz"
     @IBOutlet weak var textbox: UITextView!

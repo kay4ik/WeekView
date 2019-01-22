@@ -20,7 +20,7 @@ class EditTableViewController: UITableViewController, RViewControllerProtocol {
     
     var navigationBar: UINavigationBar?
     
-    var remind: Reminder?
+    var remind: Reminder!
     let remindController = ReminderManager.shared
     let setting = Settings.shared
     let notifyController = NotificationController.shared
@@ -102,12 +102,13 @@ class EditTableViewController: UITableViewController, RViewControllerProtocol {
     }
     
     private func clear() {
-        remind = nil
+        remind = Reminder()
         alreadyExist = false
         titleTextField.text = ""
         noticeTextView.text = ""
         datePicker.date = Date()
         priorityPicker.selectedSegmentIndex = 0
+        priorityLabel.backgroundColor = PriorityHelper.getColorOf(priority: 0, colorMode: setting.colorMode)
         navigationItem.title = "Neue Erinnerung"
     }
     
@@ -126,7 +127,7 @@ class EditTableViewController: UITableViewController, RViewControllerProtocol {
         else {
             remindController.insert(remind!)
             if remind!.priority >= 1 {
-                notifyController.newNotify(with: remind!)
+                notifyController.create(from: remind!, triggeredByLocation: false)
             }
         }
         clear()
@@ -167,7 +168,6 @@ extension EditTableViewController: UITextFieldDelegate, UITextViewDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        remind!.notice = noticeTextView.text
         if noticeTextView.text.isEmpty {
             noticeTextView.text = "Keine Notiz"
             noticeTextView.textColor = UIColor.lightGray

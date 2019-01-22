@@ -99,6 +99,8 @@ class ReminderManager {
         }
     }
     
+    
+    // MARK: - Data Controlling for Settings
     public func deleteAllDoneReminder() {
         for remind in reminders {
             if remind.done {

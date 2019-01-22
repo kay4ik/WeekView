@@ -43,6 +43,12 @@ class HomeViewController: UIViewController, RViewControllerProtocol {
         reload()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if WVNotification.tapped {
+            self.performSegue(withIdentifier: "showNotification", sender: nil)
+        }
+    }
+    
     private func initializeDesign() {
         setUpBarStyles()
         setUpBackgroundColors()
@@ -376,6 +382,11 @@ extension HomeViewController: ScrollingDelegate, MoveDateDelegate {
         super.prepare(for: segue, sender: sender)
         
         switch segue.identifier ?? "" {
+        case "showNotification":
+            guard let detailTableViewController = segue.destination as? DetailTableViewController else {fatalError()}
+            detailTableViewController.remind = remindController.getReminder(with: WVNotification.id)
+            WVNotification.id = ""
+            WVNotification.tapped = false
             
         case "ShowDetails":
             guard let reminderDetailViewController = segue.destination as? DetailTableViewController else {fatalError()}

@@ -8,8 +8,9 @@
 
 import UIKit
 import UserNotifications
+import CoreLocation
 
-class NotificationController: NSObject, UNUserNotificationCenterDelegate{
+class NotificationController: NSObject{
     private override init(){}
     class var shared : NotificationController {
         struct Static {
@@ -18,39 +19,36 @@ class NotificationController: NSObject, UNUserNotificationCenterDelegate{
         return Static.instance
     }
     
+    private var reminder: Reminder!
+    private let repeating = false
     
-    //Handle Opening Notification!
+    public func create(from reminder: Reminder, triggeredByLocation locationTrigger: Bool) {
+        self.reminder = reminder
+        let content: UNNotificationContent = setupContent()
+        let trigger = setupTrigger(locationTrigger)
+        let request = UNNotificationRequest(identifier: reminder.id, content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
     
-    //OVERWORK!
-    public func newNotify(with reminder: Reminder){
-        let center = UNUserNotificationCenter.current()
+    private func setupContent() -> UNNotificationContent {
         let content = UNMutableNotificationContent()
         content.title = reminder.title
-        content.body = "Erinnerung ist abgelaufen!"
-        if reminder.location != nil {
-            let location = reminder.location
-            content.body += "Ort: " + location!.route + ", " + location!.city
+        if reminder.isNoticeSet() {
+            content.body = reminder.notice
+        }
+        else {
+            content.body = reminder.getDateAsString()
         }
         
-        let calendar = Calendar.current
-        let component = Calendar.Component.self
-        let date = reminder.date
-        
-        var dateInfo = DateComponents()
-        dateInfo.year = calendar.component(component.year, from: date)
-        dateInfo.month = calendar.component(component.month, from: date)
-        dateInfo.day = calendar.component(component.day, from: date)
-        dateInfo.hour = calendar.component(component.hour, from: date)
-        dateInfo.minute = calendar.component(component.minute, from: date)
-        
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateInfo, repeats: false)
-        //identifierer has get changed to Reminder ID
-        let request = UNNotificationRequest(identifier: reminder.title, content: content, trigger: trigger)
-        
-        center.add(request) { (error) in
-            if let theError = error {
-                print(theError.localizedDescription)
-            }
+        return content
+    }
+    
+    private func setupTrigger(_ type: Bool) -> UNNotificationTrigger {
+        if type {
+            //Implement Region Notification
+            return UNLocationNotificationTrigger(region: CLRegion(), repeats: repeating)
         }
+        return UNCalendarNotificationTrigger(dateMatching: reminder!.date.components, repeats: repeating)
     }
 }

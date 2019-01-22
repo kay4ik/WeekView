@@ -12,7 +12,7 @@ import GoogleMaps
 import UserNotifications
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     let notificationController = NotificationController.shared
     let rManager = ReminderManager.shared
     let settingController = Settings.shared
@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.alert,.sound,.carPlay]) { (didAllowed, error) in
         }
         let center = UNUserNotificationCenter.current()
-        center.delegate = notificationController
+        center.delegate = self
         settingController.setupRuntime()
         
         return true
@@ -44,5 +44,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+    }
+}
+
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        
+        let homeNav = storyBoard.instantiateViewController(withIdentifier: "homeNav") as! UINavigationController
+        
+        WVNotification.tapped = true
+        WVNotification.id = response.notification.request.identifier
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.rootViewController = homeNav
+        self.window?.makeKeyAndVisible()
     }
 }

@@ -70,7 +70,7 @@ class ScrollingPopUp: UIViewController {
     private func handleCellSelected(validCell: ScrollingCell, cellState: CellState){
         validCell.selectedView.backgroundColor = setting.backgroundColor
         validCell.selectedView.layer.borderWidth = 2
-        validCell.selectedView.layer.borderColor = UIColor.white.cgColor
+        validCell.selectedView.layer.borderColor = setting.mainTextColor.cgColor
         
         if cellState.isSelected {
             validCell.selectedView.isHidden = false

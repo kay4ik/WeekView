@@ -46,6 +46,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         toolbar.tintColor = settings.barTintColor
         detailView.backgroundColor = settings.backgroundColor
         detailView.alpha = 0.9
+        toolbar.roundCorners(corners: [.topLeft, .bottomLeft], radius: 22.5)
     
         for subview in detailView.subviews {
             if let label = subview as? UILabel {
@@ -91,6 +92,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     @IBAction func search(_ sender: Any) {
         let acController = GMSAutocompleteViewController()
         acController.delegate = self
+        acController.navigationController?.navigationBar.tintColor = settings.barTintColor
         present(acController, animated: true, completion: nil)
     }
     
@@ -108,7 +110,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
 extension MapViewController: GMSAutocompleteViewControllerDelegate {
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         dismiss(animated: true, completion: nil)
-        //handleAddressing(place)
+        handleAddressing(place)
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

@@ -103,7 +103,7 @@ class DetailTableViewController: UITableViewController {
             viewController.reminder = remind
             
         case "showNotice":
-            guard let viewController = segue.destination as? ShowNoticeViewController else {
+            guard let viewController = segue.destination as? ShowNoticePopUp else {
                 fatalError("Unkown destination in showNotice")
             }
             viewController.notice = remind.notice
