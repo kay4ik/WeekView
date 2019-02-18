@@ -10,7 +10,8 @@ target 'Weekview' do
   pod 'GoogleMaps'
   pod 'GooglePlaces'
   pod 'GooglePlacePicker'
-
+  pod 'AppCenter'
+  pod 'AppCenter/Distribute'
 
   target 'WeekviewTests' do
     inherit! :search_paths

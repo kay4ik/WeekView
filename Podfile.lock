@@ -1,4 +1,14 @@
 PODS:
+  - AppCenter (1.13.0):
+    - AppCenter/Analytics (= 1.13.0)
+    - AppCenter/Crashes (= 1.13.0)
+  - AppCenter/Analytics (1.13.0):
+    - AppCenter/Core
+  - AppCenter/Core (1.13.0)
+  - AppCenter/Crashes (1.13.0):
+    - AppCenter/Core
+  - AppCenter/Distribute (1.13.0):
+    - AppCenter/Core
   - GoogleMaps (2.7.0):
     - GoogleMaps/Maps (= 2.7.0)
   - GoogleMaps/Base (2.7.0)
@@ -12,6 +22,8 @@ PODS:
   - JTAppleCalendar (7.1.6)
 
 DEPENDENCIES:
+  - AppCenter
+  - AppCenter/Distribute
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -19,17 +31,19 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AppCenter
     - GoogleMaps
     - GooglePlacePicker
     - GooglePlaces
     - JTAppleCalendar
 
 SPEC CHECKSUMS:
+  AppCenter: a70408f15de23f925001bfc7b7473094a009a4eb
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
   GooglePlacePicker: 59ea44db173c58486ad6123993e81feefcbce9c3
   GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   JTAppleCalendar: abb30678f42a4ef8a340a932b1dcb8c85a33dac2
 
-PODFILE CHECKSUM: 157569bd991df66715213250c9d46879ad62137d
+PODFILE CHECKSUM: 28cc61d79201d4fa34360d1549918d4acced4438
 
 COCOAPODS: 1.5.3

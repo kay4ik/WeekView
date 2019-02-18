@@ -10,6 +10,10 @@ import UIKit
 import GooglePlaces
 import GoogleMaps
 import UserNotifications
+import AppCenter
+import AppCenterAnalytics
+import AppCenterCrashes
+import AppCenterDistribute
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let settingController = Settings.shared
     
     var window: UIWindow?
-
+    
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         
         GMSPlacesClient.provideAPIKey("AIzaSyBf8eIYZKlOfgE8av5Hn9gDwOGPvdg7NSM")
@@ -28,7 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         rManager.load()
         UNUserNotificationCenter.current().requestAuthorization(options: [.badge,.alert,.sound,.carPlay]) { (didAllowed, error) in
         }
@@ -36,6 +39,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         center.delegate = self
         settingController.setupRuntime()
         
+        #if DEBUG
+        MSAppCenter.start("951828f7-de3b-4fa0-b337-89681af90d70", withServices: [MSAnalytics.self, MSCrashes.self])
+        #else
+        MSAppCenter.start("951828f7-de3b-4fa0-b337-89681af90d70", withServices: [MSAnalytics.self, MSCrashes.self, MSDistribute.self])
+        #endif
+        
+        MSDistribute.setDelegate(self)
+        MSDistribute.setEnabled(true)
         return true
     }
 
@@ -60,5 +71,25 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.rootViewController = homeNav
         self.window?.makeKeyAndVisible()
+    }
+}
+extension AppDelegate: MSDistributeDelegate{
+    func distribute(_ distribute: MSDistribute!, releaseAvailableWith details: MSReleaseDetails!) -> Bool {
+        // Your code to present your UI to the user, e.g. an UIAlertController.
+        let alertController = UIAlertController(title: "Update available.",
+                                                message: "Do you want to update?",
+                                                preferredStyle:.alert)
+        
+        alertController.addAction(UIAlertAction(title: "Update", style: .cancel) {_ in
+            MSDistribute.notify(.update)
+        })
+        
+        alertController.addAction(UIAlertAction(title: "Postpone", style: .default) {_ in
+            MSDistribute.notify(.postpone)
+        })
+        
+        // Show the alert controller.
+        self.window?.rootViewController?.present(alertController, animated: true)
+        return true;
     }
 }
